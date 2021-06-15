@@ -2,23 +2,25 @@
 
 zstyle ':completion:*' completer _complete _ignored
 zstyle :compinstall filename "~/.zshrc"
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 autoload -Uz compinit
 compinit
-# End of lines added by compinstall
-# Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=50000
 SAVEHIST=50000
 bindkey -e
-# End of lines configured by zsh-newuser-install
-#
-export PATH=$PATH:~/bin:~/.cargo/bin:~/.local/bin:~/go/bin:~/workspace/dotfiles/
+# NPM packages in homedir
+NPM_PACKAGES="$HOME/.npm-packages"
+export PATH="$PATH:$HOME/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/go/bin:$HOME/workspace/dotfiles/:$NPM_PACKAGES/bin"
 export PS1="%n %~> "
+[ -f ~/.env ] && . ~/.env
 alias sudo=doas
-#zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-alias ls='ls --color'
-
+case "$(uname -s)" in
+    Linux*) alias ls='ls --color';;
+    Darwin*) alias ls='ls -G';;
+    *) echo "OS customization not supported"; ;
+esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -30,12 +32,6 @@ if [ -x /usr/bin/dircolors ]; then
 	alias fgrep='fgrep --color=auto'
 	alias egrep='egrep --color=auto'
 fi
-
-# NPM packages in homedir
-NPM_PACKAGES="$HOME/.npm-packages"
-
-# Tell our environment about user-installed node tools
-PATH="$NPM_PACKAGES/bin:$PATH"
 
 # Unset manpath so we can inherit from /etc/manpath via the `manpath` command
 unset MANPATH
