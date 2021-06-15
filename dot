@@ -6,7 +6,7 @@ F="$SCRIPTPATH/files"
 function setpath(){
     set -e
     set -x
-    (cd $F && $1)
+    (cd "$F" && "$1" "$@")
 }
 
 function files(){
@@ -23,9 +23,10 @@ function files(){
 
 function apps(){
     npm config set prefix "$HOME/.npm-packages"
-    npm i -g bash-language-server
     npm i -g pyright
+    npm i -g bash-language-server
     npm i -g vim-language-server
+    npm i -g clangd
     GO111MODULE=on go get golang.org/x/tools/gopls@latest
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -52,13 +53,21 @@ function __copy(){
     install ~/.zshrc .
     install ~/.bashrc .
 }
+function __git(){
+    "$@"
+}
 
 ([ "$1" = copy ] || [ "$1" = install ]) && setpath "__$1" && exit 0
+
+# Convencient way to interact with git repo regardless of cwd
+[ "$1" = git ] && setpath "__$1" "$@" && exit 0
 
 echo
 echo "usage: $0 [copy|install]"
 echo
-echo "install	- deploy files from vcs directory and install deps"
-echo "copy	- move files to vcs directory"
+echo "push/pull registered files between a git repo and filesystem locations"
 echo
-
+echo "install   - deploy files from vcs directory and install deps"
+echo "copy      - move files to vcs directory"
+echo "git       - run vcs commands"
+echo
