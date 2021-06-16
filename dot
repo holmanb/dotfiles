@@ -10,15 +10,15 @@ function setpath(){
 }
 
 function files(){
-    install init.vim ~/.config/nvim/
-    install bash-lsp.lua ~/.config/nvim/
-    install python-lsp.lua ~/.config/nvim/
-    install clang-lsp.lua ~/.config/nvim/
-    install compe-config.lua ~/.config/nvim/
-    install lsp-config.vim ~/.config/nvim/
-    install .vimrc ~/
-    install .bashrc ~/
-    install .zshrc ~/
+    install bash-lsp.lua        ~/.config/nvim/lua/
+    install python-lsp.lua      ~/.config/nvim/lua/
+    install clang-lsp.lua       ~/.config/nvim/lua/
+    install compe-config.lua    ~/.config/nvim/lua/
+    install init.vim            ~/.config/nvim/
+    install lsp-config.vim      ~/.config/nvim/
+    install .vimrc              ~/
+    install .bashrc             ~/
+    install .zshrc              ~/
 }
 
 function apps(){
@@ -34,40 +34,42 @@ function apps(){
 
 function dir(){
     mkdir -p ~/.config/nvim/plugged
+    mkdir -p ~/.config/nvim/lua
     mkdir -p ~/.vim
     echo $NPM_PACKAGES/bin
     mkdir -p $NPM_PACKAGES/bin # from .zshrc
 }
 
-function __install(){
+function __push(){
     dir
     apps
     files
-    echo "Reload .vimrc and :PlugInstall to install plugins."
+    nvim +PlugInstall
 }
 
-function __copy(){
+function __pull(){
     install ~/.config/nvim/*.vim .
-    install ~/.config/nvim/*.lua .
+    install ~/.config/nvim/lua/*.lua .
     install ~/.vimrc .
     install ~/.zshrc .
     install ~/.bashrc .
 }
+
 function __git(){
     "$@"
 }
 
-([ "$1" = copy ] || [ "$1" = install ]) && setpath "__$1" && exit 0
+([ "$1" = push ] || [ "$1" = pull ]) && setpath "__$1" && exit 0
 
 # Convencient way to interact with git repo regardless of cwd
 [ "$1" = git ] && setpath "__$1" "$@" && exit 0
 
 echo
-echo "usage: $0 [copy|install]"
+echo "usage: $0 [push|pull]"
 echo
 echo "push/pull registered files between a git repo and filesystem locations"
 echo
-echo "install   - deploy files from vcs directory and install deps"
-echo "copy      - move files to vcs directory"
+echo "push      - deploy files from vcs directory and install deps"
+echo "pull      - move files to vcs directory"
 echo "git       - run vcs commands"
 echo
