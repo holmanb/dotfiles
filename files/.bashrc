@@ -13,7 +13,6 @@ if [[ $- != *i* ]] ; then
 	# Shell is non-interactive.  Be done now!
 	return
 fi
-alias sudo='doas'
 export PATH="$PATH:~/bin:/home/bholman/.cargo/bin:~/.local/bin"
 export EDITOR="vim"
 #export GPG_TTY=$(tty)
