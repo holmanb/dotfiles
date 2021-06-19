@@ -10,12 +10,9 @@ function setpath(){
 }
 
 function files(){
-    install bash-lsp.lua        ~/.config/nvim/lua/
-    install python-lsp.lua      ~/.config/nvim/lua/
-    install clang-lsp.lua       ~/.config/nvim/lua/
     install compe-config.lua    ~/.config/nvim/lua/
+    install lsp-keybinds.lua	~/.config/nvim/lua
     install init.vim            ~/.config/nvim/
-    install lsp-config.vim      ~/.config/nvim/
     install .vimrc              ~/
     install .bashrc             ~/
     install .zshrc              ~/
@@ -42,6 +39,11 @@ function dir(){
 
 function __push(){
     dir
+    files
+}
+
+function __install(){
+    dir
     apps
     files
     nvim +PlugInstall
@@ -59,9 +61,9 @@ function __git(){
     "$@"
 }
 
-([ "$1" = push ] || [ "$1" = pull ]) && setpath "__$1" && exit 0
+([ "$1" = push ] || [ "$1" = pull ] [ "$1" = install ]) && setpath "__$1" && exit 0
 
-# Convencient way to interact with git repo regardless of cwd
+# Convenient way to interact with git repo regardless of cwd
 [ "$1" = git ] && setpath "__$1" "$@" && exit 0
 
 echo
@@ -69,7 +71,8 @@ echo "usage: $0 [push|pull]"
 echo
 echo "push/pull registered files between a git repo and filesystem locations"
 echo
-echo "push      - deploy files from vcs directory and install deps"
+echo "git <cmd> - run vcs commands as cwd is in the repo directory"
+echo "install   - deploy files from vcs directory and install deps"
+echo "push      - deploy files from vcs directory"
 echo "pull      - move files to vcs directory"
-echo "git       - run vcs commands"
 echo
