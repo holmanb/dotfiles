@@ -10,6 +10,8 @@ HISTFILE=~/.histfile
 HISTSIZE=50000
 SAVEHIST=50000
 bindkey -e
+bindkey "^[[3~" delete-char
+
 # NPM packages in homedir
 NPM_PACKAGES="$HOME/.npm-packages"
 export PATH="$PATH:$HOME/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/go/bin:$HOME/.local/bin:$HOME/workspace/dotfiles/:$NPM_PACKAGES/bin:/usr/local/opt/llvm/bin"
