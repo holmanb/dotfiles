@@ -12,6 +12,8 @@ SAVEHIST=50000
 bindkey -e
 bindkey "^[[3~" delete-char
 
+source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
 # NPM packages in homedir
 NPM_PACKAGES="$HOME/.npm-packages"
 export PATH="$PATH:$HOME/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/go/bin:$HOME/.local/bin:$HOME/workspace/dotfiles/:$NPM_PACKAGES/bin:/usr/local/opt/llvm/bin"
@@ -34,10 +36,6 @@ if [ -x /usr/bin/dircolors ]; then
 	alias fgrep='fgrep --color=auto'
 	alias egrep='egrep --color=auto'
 fi
-
-# Unset manpath so we can inherit from /etc/manpath via the `manpath` command
-#unset MANPATH
-#MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
 
 # Tell Node about these packages
 NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
