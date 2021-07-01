@@ -1,0 +1,25 @@
+set ssl_force_tls = yes
+
+set mail_check = 60
+set timeout = 10
+set sort = "reverse-threads"
+set sort_aux = "date-received"
+set copy = no
+
+unset signature
+set editor = "nvim"
+set charset = "utf-8"
+set record = ''
+
+set sidebar_visible
+set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S  "
+set mail_check_stats
+set imap_keepalive = 900
+set imap_check_subscribed
+
+set pager_index_lines = 10
+
+color index brightwhite default ~O
+color indicator underline white default
+
+source "gpg -d ~/.mutt/personal.gpg |"

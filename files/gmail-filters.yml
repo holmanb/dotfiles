@@ -1,0 +1,9 @@
+-
+  list: linux-perf-users@vger.kernel.org
+  label: linux-perf-users
+  archive: true
+
+-
+  list: linux-fsdevel@vger.kernel.org
+  label: linux-fsdevel
+  archive: true
