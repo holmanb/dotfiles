@@ -77,7 +77,7 @@ function __git(){
 [ "$1" = git ] && setpath "__$1" "$@" && exit 0
 
 echo
-echo "usage: $0 [push|pull]"
+echo "usage: $0 [push|pull|install|git]"
 echo
 echo "push/pull registered files between a git repo and filesystem locations"
 echo

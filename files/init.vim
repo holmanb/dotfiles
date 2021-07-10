@@ -5,6 +5,34 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+filetype on
+syntax on
+set relativenumber
+set cursorline
+set showmatch
+" jump to the last position when reopening a file
+if  has("autocmd")
+	au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
+" Highlight Trailing Whitespace
+"
+" Track which buffers have been created, and set the highlighting only once.
+autocmd VimEnter * autocmd WinEnter * let w:created=1
+autocmd VimEnter * let w:created=1
+highlight WhitespaceEOL ctermbg=red ctermfg=white guibg=#592929
+autocmd WinEnter *
+  \ if !exists('w:created') | call matchadd('WhitespaceEOL', '\s\+$') | endif
+call matchadd('WhitespaceEOL', '\s\+$')
+
+" Highlight Past Column 80
+"
+" Change the background color past column 80 to indicate you've typed too
+" much.
+highlight ColorColumn ctermbg=239 guibg=#39393b
+execute "set colorcolumn=" . join(range(80,80), ',')
+
+
 " Plugins
 call plug#begin('~/.config/nvim/plugged/')
 	Plug 'neovim/nvim-lspconfig'

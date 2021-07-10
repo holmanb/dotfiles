@@ -9,6 +9,7 @@ compinit
 HISTFILE=~/.histfile
 HISTSIZE=50000
 SAVEHIST=50000
+EDITOR=nvim
 bindkey -e
 bindkey "^[[3~" delete-char
 
