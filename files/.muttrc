@@ -7,7 +7,7 @@ set sort_aux = "date-received"
 set copy = no
 
 unset signature
-set editor = "nvim"
+set editor = 'nvim -c "setlocal spell spelllang=en_us"'
 set charset = "utf-8"
 set record = ''
 

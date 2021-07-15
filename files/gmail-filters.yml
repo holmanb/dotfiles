@@ -7,3 +7,11 @@
   list: linux-fsdevel@vger.kernel.org
   label: linux-fsdevel
   archive: true
+-
+  list: linux-bcachefs@vger.kernel.org
+  label: linux-bcachefs
+  archive: true
+-
+  list: linux-mm@kvack.org
+  label: linux-mm
+  archive: true
