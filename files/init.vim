@@ -37,9 +37,12 @@ execute "set colorcolumn=" . join(range(80,80), ',')
 call plug#begin('~/.config/nvim/plugged/')
 	Plug 'neovim/nvim-lspconfig'
 	Plug 'hrsh7th/nvim-compe'
+	Plug 'neomake/neomake'
+	Plug 'jiangmiao/auto-pairs'
 	Plug 'glepnir/lspsaga.nvim'
-    Plug 'neomake/neomake'
+	Plug 'lifepillar/vim-solarized8'
 call plug#end()
+
 
 highlight link CompeDocumentation NormalFloat
 

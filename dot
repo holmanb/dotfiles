@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+set -e
+
 SCRIPTPATH=$0:A:h
 F="$SCRIPTPATH/files"
 
