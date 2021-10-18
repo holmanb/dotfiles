@@ -10,3 +10,5 @@
 	smtpserver = smtp.gmail.com
 	smtpuser = bholman.devel@gmail.com
 	smtpserverport = 587
+[pull]
+	ff = only

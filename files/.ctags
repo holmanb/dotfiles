@@ -1,5 +1,7 @@
 --recurse=yes
 --exclude=.git
+--exclude=.tox
+--exclude=__pycache__
 --exclude=BUILD
 --exclude=.svn
 --exclude=*.js
