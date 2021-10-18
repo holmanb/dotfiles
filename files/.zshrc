@@ -20,7 +20,6 @@ NPM_PACKAGES="$HOME/.npm-packages"
 export PATH="$PATH:$HOME/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/go/bin:$HOME/.local/bin:$HOME/workspace/dotfiles/:$NPM_PACKAGES/bin:/usr/local/opt/llvm/bin:$HOME/workspace/ktest"
 export PROMPT='%F{240}%n%F{red}@%F{green}%m:%B%~%b %(!.#.>) '
 test -f $HOME/.env && . $HOME/.env
-test "${$(which sudo)#*no blw in}" && alias sudo='doas '
 case "$(uname -s)" in
     Linux*) alias ls='ls --color';;
     Darwin*) alias ls='ls -G';;
