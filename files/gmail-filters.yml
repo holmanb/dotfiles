@@ -15,3 +15,8 @@
   list: linux-mm@kvack.org
   label: linux-mm
   archive: true
+
+-
+  list: linux-aio@kvack.org
+  label: linux-aio
+  archive: true

@@ -18,6 +18,7 @@ function files(){
     install .bashrc             ~/
     install .zshrc              ~/
     install .muttrc             ~/
+    install .gitconfig          ~/
     gmail-yaml-filters gmail-filters.yml > ~/Downloads/myfilters.xml #manually imported
 }
 
@@ -36,11 +37,12 @@ function apps(){
 }
 
 function dir(){
-    mkdir -p ~/.config/nvim/plugged
-    mkdir -p ~/.config/nvim/lua
+    mkdir -p ~/.config/nvim/plugins/
+    mkdir -p ~/.config/nvim/plugged/
+    mkdir -p ~/.config/nvim/lua/
     mkdir -p ~/.config/zsh/
-    mkdir -p ~/.vim
-    mkdir -p ~/.mutt
+    mkdir -p ~/.vim/autoload/
+    mkdir -p ~/.mutt/cache
     echo $NPM_PACKAGES/bin
     mkdir -p $NPM_PACKAGES/bin # from .zshrc
 }
@@ -65,6 +67,7 @@ function __pull(){
     install ~/.zshrc .
     install ~/.bashrc .
     install ~/.ctags .
+    install ~/.gitconfig .
 }
 
 function __git(){

@@ -1,0 +1,12 @@
+[user]
+	name = Brett Holman
+	email = bholman.devel@gmail.com
+[core]
+	editor = nvim
+[init]
+	defaultBranch = main
+[sendemail]
+	smtpencryption = tls
+	smtpserver = smtp.gmail.com
+	smtpuser = bholman.devel@gmail.com
+	smtpserverport = 587
