@@ -10,6 +10,8 @@ HISTFILE=~/.histfile
 HISTSIZE=50000
 SAVEHIST=50000
 EDITOR=nvim
+export DEBEMAIL="brett.holman@canonical.com"
+export DEBFULLNAME="Brett Holman"
 bindkey -e
 bindkey "^[[3~" delete-char
 
@@ -17,7 +19,7 @@ source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # NPM packages in homedir
 NPM_PACKAGES="$HOME/.npm-packages"
-export PATH="$PATH:$HOME/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/go/bin:$HOME/.local/bin:$HOME/workspace/dotfiles/:$NPM_PACKAGES/bin:/usr/local/opt/llvm/bin:$HOME/workspace/ktest"
+export PATH="$PATH:$HOME/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/go/bin:$HOME/.local/bin:$HOME/workspace/dotfiles/:$NPM_PACKAGES/bin:/usr/local/opt/llvm/bin:$HOME/workspace/ktest:$HOME/workspace/uss-tableflip/scripts"
 export PROMPT='%F{240}%n%F{red}@%F{green}%m:%B%~%b %(!.#.>) '
 test -f $HOME/.env && . $HOME/.env
 case "$(uname -s)" in

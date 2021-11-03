@@ -40,8 +40,11 @@ call plug#begin('~/.config/nvim/plugged/')
 	Plug 'neomake/neomake'
 	Plug 'jiangmiao/auto-pairs'
 	Plug 'glepnir/lspsaga.nvim'
-	Plug 'lifepillar/vim-solarized8'
+	Plug 'mfulz/cscope.nvim'
 call plug#end()
+
+let g:cscope_map_keys = 1
+let g:cscope_update_on_start = 1
 
 
 highlight link CompeDocumentation NormalFloat
