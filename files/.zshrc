@@ -9,7 +9,7 @@ compinit
 HISTFILE=~/.histfile
 HISTSIZE=50000
 SAVEHIST=50000
-EDITOR=nvim
+export EDITOR=nvim
 export DEBEMAIL="brett.holman@canonical.com"
 export DEBFULLNAME="Brett Holman"
 bindkey -e
@@ -38,6 +38,27 @@ if [ -x /usr/bin/dircolors ]; then
 	alias fgrep='fgrep --color=auto'
 	alias egrep='egrep --color=auto'
 fi
+alias pytest=pytest-3
+alias python=python3
 
 # Tell Node about these packages
 NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
+
+# fuzzy search history, run command (dedupe whitespace)
+func zhist() {
+	$(sed 's/[[:blank:]]{2}+/ /g' ~/.histfile | uniq | fzf --tac)
+}
+
+# fuzzy kill
+func zkill(){
+	kill $(ps aux  | fzf | awk '{print $2}')
+}
+
+# fuzzy find file to open in nvim and update history
+func znvim() {
+	FZF_FILE="$(fzf)"
+	nvim "$FZF_FILE"
+	fc -W
+	echo "nvim $FZF_FILE" >> $HISTFILE
+	fc -R
+}

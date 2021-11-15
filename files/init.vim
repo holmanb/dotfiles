@@ -36,6 +36,7 @@ execute "set colorcolumn=" . join(range(80,80), ',')
 " Plugins
 call plug#begin('~/.config/nvim/plugged/')
 	Plug 'neovim/nvim-lspconfig'
+	Plug 'junegunn/fzf'
 	Plug 'hrsh7th/nvim-compe'
 	Plug 'neomake/neomake'
 	Plug 'jiangmiao/auto-pairs'
