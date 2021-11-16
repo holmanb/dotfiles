@@ -44,6 +44,18 @@ alias python=python3
 # Tell Node about these packages
 NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
 
+
+# log and execute command
+# used to log commands interactively built with fzf
+func zlog(){
+	my_function=$@
+	echo "$my_function"
+	fc -W
+	echo "$my_function" >> $HISTFILE
+	eval "$my_function"
+	fc -R
+}
+
 # fuzzy search history, run command (dedupe whitespace)
 func zhist() {
 	$(sed 's/[[:blank:]]{2}+/ /g' ~/.histfile | uniq | fzf --tac)
@@ -51,14 +63,25 @@ func zhist() {
 
 # fuzzy kill
 func zkill(){
-	kill $(ps aux  | fzf | awk '{print $2}')
+	zlog kill "$(ps aux  | fzf | awk '{print $2}')"
 }
 
 # fuzzy find file to open in nvim and update history
 func znvim() {
-	FZF_FILE="$(fzf)"
-	nvim "$FZF_FILE"
-	fc -W
-	echo "nvim $FZF_FILE" >> $HISTFILE
-	fc -R
+	FZF_FILE="$(fzf)" && zlog "$EDITOR $FZF_FILE"
+}
+
+# interactively fzf/git operations
+func zgit() {
+	case "$1" in
+		add)
+			git ls-files -m -o --exclude-standard	\
+				| fzf -m --print0		\
+				| xargs -0 -o -t git add
+			;;
+		*)
+			echo "Not implemented"
+			return 1
+			;;
+	esac
 }
