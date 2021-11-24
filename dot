@@ -34,15 +34,14 @@ function apps(){
     GO111MODULE=on go get golang.org/x/tools/gopls@latest
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    (git clone https://github.com/rust-analyzer/rust-analyzer.git && cd rust-analyzer && cargo xtask install --server)
-    zsh -c "git clone https://github.com/zsh-users/zsh-autosuggestions ~/.config/zsh/plugins/zsh-autosuggestions"
+    zsh -c "git clone git@github.com/zsh-users/zsh-autosuggestions.git ~/.config/zsh/plugins/zsh-autosuggestions"
+    zsh -c "git clone git@github.com:olivierverdier/zsh-git-prompt.git ~/.config/zsh/zsh-git-prompt/zsh-git-prompt"
 }
 
 function dir(){
-    mkdir -p ~/.config/nvim/plugins/
     mkdir -p ~/.config/nvim/plugged/
     mkdir -p ~/.config/nvim/lua/
-    mkdir -p ~/.config/zsh/
+    mkdir -p ~/.config/zsh/zsh-git-prompt
     mkdir -p ~/.vim/autoload/
     mkdir -p ~/.mutt/cache
     echo $NPM_PACKAGES/bin

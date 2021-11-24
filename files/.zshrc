@@ -15,6 +15,10 @@ export DEBFULLNAME="Brett Holman"
 bindkey -e
 bindkey "^[[3~" delete-char
 
+source ~/.config/zsh/zsh-git-prompt/zsh-git-prompt/zshrc.sh
+
+PROMPT='%B%m%~%b$(git_super_status) %# '
+
 source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # NPM packages in homedir

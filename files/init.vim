@@ -32,6 +32,18 @@ call matchadd('WhitespaceEOL', '\s\+$')
 highlight ColorColumn ctermbg=239 guibg=#39393b
 execute "set colorcolumn=" . join(range(80,80), ',')
 
+" Tab complete if text exists on the line
+"
+" directly from :help complete
+function! CleverTab()
+   if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
+      return "\<Tab>"
+   else
+      return "\<C-N>"
+   endif
+endfunction
+
+
 
 " Plugins
 call plug#begin('~/.config/nvim/plugged/')
@@ -42,7 +54,16 @@ call plug#begin('~/.config/nvim/plugged/')
 	Plug 'jiangmiao/auto-pairs'
 	Plug 'glepnir/lspsaga.nvim'
 	Plug 'mfulz/cscope.nvim'
+
+	"Pretty diagnostics
+	Plug 'kyazdani42/nvim-web-devicons'
+	Plug 'folke/trouble.nvim'
+	Plug 'folke/lsp-colors.nvim'
+	Plug 'kyazdani42/nvim-web-devicons'
+
+
 call plug#end()
+
 
 let g:cscope_map_keys = 1
 let g:cscope_update_on_start = 1
@@ -88,7 +109,13 @@ let g:neomake_python_enabled_makers = ['pylint']
 
 " Initialize LSP
 lua require('lsp-keybinds')
-"
+
+" Initialize trouble
+lua require("plugins/trouble")
+
+inoremap <Tab> <C-R>=CleverTab()<CR>
+
+
 "inoremap <silent><expr> <C-Space> compe#complete()
 "inoremap <silent><expr> <CR>      compe#confirm('<CR>')
 "inoremap <silent><expr> <C-e>     compe#close('<C-e>')
