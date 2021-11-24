@@ -70,6 +70,7 @@ function __pull(){
     install ~/.bashrc .
     install ~/.ctags .
     install ~/.gitconfig .
+    install ~/.config/efm-langserver/ ./efm-langserver.yaml
 }
 
 function __git(){

@@ -6,25 +6,24 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 autoload -Uz compinit
 compinit
-HISTFILE=~/.histfile
-HISTSIZE=50000
-SAVEHIST=50000
+export HISTFILE=~/.histfile
+export HISTSIZE=50000
+export SAVEHIST=50000
 export EDITOR=nvim
+export GIT_PROMPT_EXECUTABLE="haskell"
 export DEBEMAIL="brett.holman@canonical.com"
 export DEBFULLNAME="Brett Holman"
+export PROMPT='%B%m%~%F{green}%b$(git_super_status) %# '
+
 bindkey -e
 bindkey "^[[3~" delete-char
 
-source ~/.config/zsh/zsh-git-prompt/zsh-git-prompt/zshrc.sh
-
-PROMPT='%B%m%~%b$(git_super_status) %# '
-
 source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.config/zsh/zsh-git-prompt/zsh-git-prompt/zshrc.sh
 
 # NPM packages in homedir
 NPM_PACKAGES="$HOME/.npm-packages"
 export PATH="$PATH:$HOME/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/go/bin:$HOME/.local/bin:$HOME/workspace/dotfiles/:$NPM_PACKAGES/bin:/usr/local/opt/llvm/bin:$HOME/workspace/ktest:$HOME/workspace/uss-tableflip/scripts:$HOME/go/bin"
-export PROMPT='%F{240}%n%F{red}@%F{green}%m:%B%~%b %(!.#.>) '
 test -f $HOME/.env && . $HOME/.env
 case "$(uname -s)" in
     Linux*) alias ls='ls --color';;
@@ -42,12 +41,14 @@ if [ -x /usr/bin/dircolors ]; then
 	alias fgrep='fgrep --color=auto'
 	alias egrep='egrep --color=auto'
 fi
+
+# I'm that lazy
 alias pytest=pytest-3
 alias python=python3
+alias flake=flake8
 
 # Tell Node about these packages
 NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
-
 
 # log and execute command
 # used to log commands interactively built with fzf
