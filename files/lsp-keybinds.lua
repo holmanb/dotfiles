@@ -35,7 +35,25 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "pyright" } --, "clangd", "gopls" }
+local servers = { "pyright" } --, "efm-langserver""clangd", "gopls" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup { on_attach = on_attach }
 end
+
+require "lspconfig".efm.setup {
+    on_attach = on_attach,
+    init_options = {documentFormatting = true},
+    settings = {
+        rootMarkers = {".git/"},
+        languages = {
+            python = {
+                {
+			lintCommand= "flake8 --stdin-display-name ${INPUT} -",
+			lintStdin= true,
+			lintFormats = {"%f:%l:%c: %m"},
+		}
+            }
+
+        }
+    }
+}
