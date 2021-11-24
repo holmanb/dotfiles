@@ -21,6 +21,7 @@ function files(){
     install .zshrc              ~/
     install .muttrc             ~/
     install .gitconfig          ~/
+    install efm-langserver.yaml ~/.config/efm-langserver/config.yaml
     gmail-yaml-filters gmail-filters.yml > ~/Downloads/myfilters.xml #manually imported
 }
 
