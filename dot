@@ -13,7 +13,7 @@ function setpath(){
 
 function files(){
     install compe-config.lua    ~/.config/nvim/lua/
-    install lsp-keybinds.lua	~/.config/nvim/lua
+    install lsp-keybinds.lua    ~/.config/nvim/lua
     install init.vim            ~/.config/nvim/
     install .vimrc              ~/
     install .ctags              ~/

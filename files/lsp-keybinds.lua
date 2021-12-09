@@ -34,96 +34,49 @@ local on_attach = function(client, bufnr)
 end
 
 -- Borders
-vim.cmd [[autocmd ColorScheme * highlight NormalFloat guibg=#1f2335]]
-vim.cmd [[autocmd ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]]
-
-local border = {
-      {"🭽", "FloatBorder"},
-      {"▔", "FloatBorder"},
-      {"🭾", "FloatBorder"},
-      {"▕", "FloatBorder"},
-      {"🭿", "FloatBorder"},
-      {"▁", "FloatBorder"},
-      {"🭼", "FloatBorder"},
-      {"▏", "FloatBorder"},
-}
-
--- Global border config
-local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
-function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-  opts = opts or {}
-  opts.border = opts.border or border
-  return orig_util_open_floating_preview(contents, syntax, opts, ...)
-end
-
-
+-- local border = {
+--       {"🭽", "FloatBorder"},
+--       {"▔", "FloatBorder"},
+--       {"🭾", "FloatBorder"},
+--       {"▕", "FloatBorder"},
+--       {"🭿", "FloatBorder"},
+--       {"▁", "FloatBorder"},
+--       {"🭼", "FloatBorder"},
+--       {"▏", "FloatBorder"},
+-- }
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 local servers = { "pyright" } --, "efm-langserver""clangd", "gopls" }
 for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup { on_attach = on_attach }
+  nvim_lsp[lsp].setup {
+	on_attach = on_attach,
+	capabilites = capabilities, -- from nvim-cmp
+  }
 end
 
 -- Flake8/efm-server config
 require "lspconfig".efm.setup {
-    on_attach = on_attach,
-    init_options = {documentFormatting = true},
-    settings = {
+	capabilites = capabilities, -- from nvim-cmp
+	on_attach = on_attach,
+	init_options = {documentFormatting = true},
+	settings = {
         rootMarkers = {".git/"},
         languages = {
-            python = {
-                {
-			lintCommand= "flake8 --stdin-display-name ${INPUT} -",
-			lintStdin= true,
-			lintFormats = {"%f:%l:%c: %m"},
-		}
-            }
+            python = {{
+		lintCommand= "flake8 --stdin-display-name ${INPUT} -",
+		lintStdin= true,
+		lintFormats = {"%f:%l:%c: %m"},
+		}}
 
         }
     }
 }
 
 ---- Sign column (0.6 specific)
---local signs = { Error = "☢ ", Warn = "⚠", Hint = "﹩", Info = "ℹ" }
---
---for type, icon in pairs(signs) do
---  local hl = "DiagnosticSign" .. type
---  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
---end
---
----- Completion kinds
---local M = {}
---
---M.icons = {
---  Class = " ",
---  Color = " ",
---  Constant = " ",
---  Constructor = " ",
---  Enum = "了 ",
---  EnumMember = " ",
---  Field = " ",
---  File = " ",
---  Folder = " ",
---  Function = " ",
---  Interface = "ﰮ ",
---  Keyword = " ",
---  Method = "ƒ ",
---  Module = " ",
---  Property = " ",
---  Snippet = "﬌ ",
---  Struct = " ",
---  Text = " ",
---  Unit = " ",
---  Value = " ",
---  Variable = " ",
---}
---
---function M.setup()
---  local kinds = vim.lsp.protocol.CompletionItemKind
---  for i, kind in ipairs(kinds) do
---    kinds[i] = M.icons[kind] or kind
---  end
---end
---
---return M
+local signs = { Error = "E ", Warn = "W", Hint = "H", Info = "i" }
+
+for type, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end

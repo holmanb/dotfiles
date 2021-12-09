@@ -13,7 +13,7 @@ export EDITOR=nvim
 export GIT_PROMPT_EXECUTABLE="haskell"
 export DEBEMAIL="brett.holman@canonical.com"
 export DEBFULLNAME="Brett Holman"
-export PROMPT='%B%m%F{green}%~%b%F{reset}$(git_super_status)>'
+export PROMPT='%B%m%F{green}%~%b%F{reset}$(git_super_status) '
 
 bindkey -e
 bindkey "^[[3~" delete-char
