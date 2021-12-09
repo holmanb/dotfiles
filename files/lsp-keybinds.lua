@@ -72,11 +72,3 @@ require "lspconfig".efm.setup {
         }
     }
 }
-
----- Sign column (0.6 specific)
-local signs = { Error = "E ", Warn = "W", Hint = "H", Info = "i" }
-
-for type, icon in pairs(signs) do
-  local hl = "DiagnosticSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end

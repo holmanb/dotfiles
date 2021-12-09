@@ -47,7 +47,6 @@ function! CleverTab()
       return "\<C-N>"
    endif
 endfunction
-inoremap <Tab> <C-R>=CleverTab()<CR>
 
 " Plugins
 call plug#begin('~/.config/nvim/plugged/')
@@ -75,6 +74,7 @@ call plug#begin('~/.config/nvim/plugged/')
 
 call plug#end()
 
+
 " Init plugins
 lua require('lsp-keybinds')
 lua require('nvim-cmp')
@@ -82,3 +82,8 @@ lua require('nvim-cmp')
 " Initialize trouble
 lua require("plugins/trouble")
 lua require("plugins/nvim-web-devicons")
+
+inoremap <Tab> <C-R>=CleverTab()<CR>
+nnoremap <C-a> <cmd>TroubleToggle<cr>
+
+highlight Pmenu ctermbg=gray guibg=gray
