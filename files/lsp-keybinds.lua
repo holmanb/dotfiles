@@ -1,6 +1,6 @@
 local nvim_lsp = require('lspconfig')
 
--- Use an on_attach function to only map the following keys 
+-- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
@@ -47,14 +47,25 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "pyright" } --, "efm-langserver""clangd", "gopls" }
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
+-- local servers = { "pyright" } --, "efm-langserver""clangd", "gopls" }
+--for _, lsp in ipairs(servers) do
+-- nvim_lsp[lsp].setup {
+-- on_attach = on_attach,
+-- }
+--end
+--p
+--lintIgnoreExitCode = true,
+require "lspconfig".pyright.setup {
+	on_attach = on_attach,
+	capabilites = capabilities -- from nvim-cmp
+}
+
+require "lspconfig".rust_analyzer.setup {
 	on_attach = on_attach,
 	capabilites = capabilities, -- from nvim-cmp
-  }
-end
+}
 
+--diagnosticMode = "openFilesOnly"
 -- Flake8/efm-server config
 require "lspconfig".efm.setup {
 	capabilites = capabilities, -- from nvim-cmp
@@ -64,11 +75,11 @@ require "lspconfig".efm.setup {
         rootMarkers = {".git/"},
         languages = {
             python = {{
-		lintCommand= "flake8 --stdin-display-name ${INPUT} -",
+		lintCommand= "flake8 --exit-zero --stdin-display-name ${INPUT} -",
 		lintStdin= true,
-		lintFormats = {"%f:%l:%c: %m"},
+		lintIgnoreExitCode = true,
+		lintFormats = {"%f:%l:%c: %m"}
 		}}
-
-        }
+        },
     }
 }

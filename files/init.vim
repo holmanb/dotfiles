@@ -37,6 +37,11 @@ call matchadd('WhitespaceEOL', '\t \+\ze')
 highlight ColorColumn ctermbg=239 guibg=#39393b
 execute "set colorcolumn=" . join(range(80,80), ',')
 
+" Popup menu color
+" highlight Pmenu ctermbg=gray guibg=gray
+highlight Pmenu ctermbg=DarkGrey guibg=DarkGrey
+
+
 " Tab complete if text exists on the line
 "
 " directly from :help complete
@@ -50,10 +55,8 @@ endfunction
 
 " Plugins
 call plug#begin('~/.config/nvim/plugged/')
-	Plug 'neovim/nvim-lspconfig'
 	Plug 'junegunn/fzf'
-	Plug 'jiangmiao/auto-pairs'
-	Plug 'glepnir/lspsaga.nvim'
+"	Plug 'jiangmiao/auto-pairs'
 
 	"Pretty diagnostics
 	Plug 'kyazdani42/nvim-web-devicons'
@@ -86,4 +89,6 @@ lua require("plugins/nvim-web-devicons")
 inoremap <Tab> <C-R>=CleverTab()<CR>
 nnoremap <C-a> <cmd>TroubleToggle<cr>
 
-highlight Pmenu ctermbg=gray guibg=gray
+"lua << EOF
+"vim.lsp.set_log_level("debug")
+"EOF
