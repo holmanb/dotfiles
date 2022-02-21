@@ -21,3 +21,4 @@ export PINENTRY_USER_DATA="USE_CURSES=1"
 
 
 # Put your fun stuff here.
+. "$HOME/.cargo/env"
