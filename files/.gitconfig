@@ -1,6 +1,7 @@
 [user]
 	name = Brett Holman
 	email = bholman.devel@gmail.com
+	signingkey = 9A5EBD85
 [core]
 	editor = nvim
 [init]
@@ -12,3 +13,5 @@
 	smtpserverport = 587
 [pull]
 	ff = only
+[gpg]
+	program = /usr/bin/gpg

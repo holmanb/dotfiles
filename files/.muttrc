@@ -25,5 +25,8 @@ set pager_index_lines = 10
 
 color index brightwhite default ~O
 color indicator underline white default
+set send_charset="us-ascii:utf-8"
 
+set ssl_starttls = yes
+set ssl_force_tls = yes
 source "gpg -d ~/.mutt/personal.gpg |"

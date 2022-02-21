@@ -11,6 +11,7 @@ syntax on
 set relativenumber
 set cursorline
 set showmatch
+set tw=72 fo=cqt wm=0
 
 " jump to the last position when reopening a file
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -88,6 +89,7 @@ lua require("plugins/nvim-web-devicons")
 
 inoremap <Tab> <C-R>=CleverTab()<CR>
 nnoremap <C-a> <cmd>TroubleToggle<cr>
+autocmd FileType python setlocal textwidth=79 formatoptions+=t
 
 "lua << EOF
 "vim.lsp.set_log_level("debug")

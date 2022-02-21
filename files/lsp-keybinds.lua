@@ -57,7 +57,14 @@ end
 --lintIgnoreExitCode = true,
 require "lspconfig".pyright.setup {
 	on_attach = on_attach,
-	capabilites = capabilities -- from nvim-cmp
+	capabilites = capabilities, -- from nvim-cmp
+	settings = {
+		python = {
+			analysis = {
+				diagnosticMode = "openFilesOnly",
+			}
+		}
+	}
 }
 
 require "lspconfig".rust_analyzer.setup {
