@@ -5,6 +5,16 @@ set -e
 SCRIPTPATH=$0:A:h
 F="$SCRIPTPATH/files"
 
+function check_dep(){
+	for cmd in "$@"; do
+		if ! command -v $cmd > /dev/null; then
+		    echo "command [$cmd] not be found"
+		    exit
+		fi
+	done
+}
+
+
 function setpath(){
     set -e
     set -x
@@ -76,6 +86,8 @@ function __pull(){
 function __git(){
     "$@"
 }
+
+check_dep install zsh curl pip npm go
 
 ([ "$1" = push ] || [ "$1" = pull ] || [ "$1" = install ]) && setpath "__$1" && exit 0
 
