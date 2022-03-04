@@ -24,7 +24,8 @@ export CC="ccache gcc"
 bindkey -e
 bindkey "^[[3~" delete-char
 
-source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+#source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.config/zsh/zsh-git-prompt/zsh-git-prompt/zshrc.sh
 
 # NPM packages in homedir
@@ -87,8 +88,8 @@ func znvim() {
 func zgit() {
 	case "$1" in
 		add)
-			git ls-files -m -o --exclude-standard	\
-				| fzf -m --print0		\
+			git ls-files -m -o --exclude-standard \
+				| fzf -m --print0             \
 				| xargs -0 -o -t git add
 			;;
 		*)
@@ -97,11 +98,14 @@ func zgit() {
 			;;
 	esac
 }
+
+# select which container(s) to run the command against
 func zlxc() {
 	for LINE in $(lxc ls | grep -v -e '^+-' -e SNAPSHOTS | awk -F '|' '{print $2}'| fzf -m); do
 		RC=$(lxc $@ $LINE)
 		echo "lxc $@ $LINE returned [$RC]"
 	done
 }
+
 #eval "$(pyenv init --path)"
 #eval "$(pyenv init -)"
