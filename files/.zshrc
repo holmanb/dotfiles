@@ -26,7 +26,8 @@ export STANDUP_F="$STANDUP_D/standup.txt"
 bindkey -e
 bindkey "^[[3~" delete-char
 
-source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+#source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.config/zsh/zsh-git-prompt/zsh-git-prompt/zshrc.sh
 
 # NPM packages in homedir
@@ -116,6 +117,15 @@ func standup() {
 	git commit -m "automated commit"
 	git push
 	cd -
+}
+
+# This wrapper requires vgrep to be installed: github.com/vrothberg/vgrep
+vgrep() {
+  INITIAL_QUERY="$1"
+  VGREP_PREFIX="vgrep --no-header "
+  FZF_DEFAULT_COMMAND="$VGREP_PREFIX '$INITIAL_QUERY'" \
+  fzf --bind "change:reload:$VGREP_PREFIX {q} || true" --ansi --phony --tac --query "$INITIAL_QUERY" \
+  | awk '{print $1}' | xargs -I{} -o vgrep --show {}
 }
 
 #eval "$(pyenv init --path)"
