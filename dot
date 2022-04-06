@@ -8,8 +8,8 @@ F="$SCRIPTPATH/files"
 function check_dep(){
 	for cmd in "$@"; do
 		if ! command -v $cmd > /dev/null; then
-		    echo "command [$cmd] not be found"
-		    exit
+			echo "command [$cmd] not be found"
+			exit
 		fi
 	done
 }
@@ -87,7 +87,7 @@ function __git(){
     "$@"
 }
 
-check_dep install zsh curl pip npm go
+check_dep install zsh curl pip npm go vgrep
 
 ([ "$1" = push ] || [ "$1" = pull ] || [ "$1" = install ]) && setpath "__$1" && exit 0
 
