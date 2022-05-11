@@ -4,6 +4,10 @@ zstyle ':completion:*' completer _complete _ignored
 zstyle :compinstall filename "~/.zshrc"
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
+export LANGUAGE="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+export LC_CTYPE="en_US.UTF-8"
+
 autoload -Uz compinit
 compinit
 export HISTFILE=~/.histfile
@@ -31,7 +35,7 @@ source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.config/zsh/zsh-git-prompt/zsh-git-prompt/zshrc.sh
 
 # NPM packages in homedir
-export PATH="$PATH:$HOME/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/go/bin:$HOME/.local/bin:$HOME/workspace/dotfiles/:$NPM_PACKAGES/bin:/usr/local/opt/llvm/bin:$HOME/workspace/ktest:$HOME/workspace/uss-tableflip/scripts:$HOME/go/bin:$PYENV_ROOT/bin"
+export PATH="$PATH:$HOME/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/go/bin:$HOME/.local/bin:$HOME/workspace/dotfiles/:$NPM_PACKAGES/bin:/usr/local/opt/llvm/bin:$HOME/workspace/ktest:$HOME/workspace/uss-tableflip/scripts:$HOME/go/bin:"
 
 test -f $HOME/.env && . $HOME/.env
 case "$(uname -s)" in
@@ -52,7 +56,6 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # I'm that lazy
-alias pytest=pytest-3
 alias python=python3
 alias flake=flake8
 

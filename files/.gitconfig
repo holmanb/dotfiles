@@ -17,3 +17,9 @@
 	program = /usr/bin/gpg
 [gitubuntu]
 	lpuser = holmanb
+[diff]
+    tool = meld
+[difftool]
+    prompt = false
+[difftool "meld"]
+    cmd = meld "$LOCAL" "$REMOTE"
