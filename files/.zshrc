@@ -35,7 +35,7 @@ source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.config/zsh/zsh-git-prompt/zsh-git-prompt/zshrc.sh
 
 # NPM packages in homedir
-export PATH="$PATH:$HOME/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/go/bin:$HOME/.local/bin:$HOME/workspace/dotfiles/:$NPM_PACKAGES/bin:/usr/local/opt/llvm/bin:$HOME/workspace/ktest:$HOME/workspace/uss-tableflip/scripts:$HOME/go/bin:"
+export PATH="$PATH:$HOME/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/go/bin:$HOME/.local/bin:$HOME/workspace/dotfiles/:$NPM_PACKAGES/bin:/usr/local/opt/llvm/bin:$HOME/workspace/ktest:$HOME/workspace/uss-tableflip/scripts:$HOME/go/bin:$HOME/workspace/lua-language-server/bin"
 
 test -f $HOME/.env && . $HOME/.env
 case "$(uname -s)" in
@@ -56,6 +56,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # I'm that lazy
+#alias pytest=pytest-3
 alias python=python3
 alias flake=flake8
 
@@ -75,7 +76,7 @@ func zlog(){
 
 # fuzzy search history, run command (dedupe whitespace)
 func zhist() {
-	$(sed 's/[[:blank:]]{2}+/ /g' ~/.histfile | uniq | fzf --tac)
+	$(sed 's/[[:blank:]]{2}+/ /g' $HISTFILE | sort -u | fzf)
 }
 
 # fuzzy kill
@@ -133,3 +134,5 @@ vgrep() {
 
 #eval "$(pyenv init --path)"
 #eval "$(pyenv init -)"
+
+alias luamake=/home/holmanb/workspace/lua-language-server/3rd/luamake/luamake

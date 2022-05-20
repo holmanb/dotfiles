@@ -1,13 +1,8 @@
-" Bootstrap plugins
-let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
-if empty(glob(data_dir . '/autoload/plug.vim'))
-  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
 filetype on
 syntax on
 
+" Hybrid line numbers
+set number
 set relativenumber
 set cursorline
 set showmatch
@@ -57,7 +52,6 @@ endfunction
 " Plugins
 call plug#begin('~/.config/nvim/plugged/')
 	Plug 'junegunn/fzf'
-"	Plug 'jiangmiao/auto-pairs'
 
 	"Pretty diagnostics
 	Plug 'kyazdani42/nvim-web-devicons'
@@ -78,8 +72,8 @@ call plug#begin('~/.config/nvim/plugged/')
 
 call plug#end()
 
-
 " Init plugins
+lua require('plugins/plugins')
 lua require('lsp-keybinds')
 lua require('nvim-cmp')
 
