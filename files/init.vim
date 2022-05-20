@@ -51,35 +51,44 @@ endfunction
 
 " Plugins
 call plug#begin('~/.config/nvim/plugged/')
-	Plug 'junegunn/fzf'
 
-	"Pretty diagnostics
-	Plug 'kyazdani42/nvim-web-devicons'
-	Plug 'folke/trouble.nvim'
-	Plug 'folke/lsp-colors.nvim'
+"Pretty diagnostics
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'folke/trouble.nvim'
+Plug 'folke/lsp-colors.nvim'
 
-	" completion
-	Plug 'neovim/nvim-lspconfig'
-	Plug 'hrsh7th/cmp-nvim-lsp'
-	Plug 'hrsh7th/cmp-buffer'
-	Plug 'hrsh7th/cmp-path'
-	Plug 'hrsh7th/cmp-cmdline'
-	Plug 'hrsh7th/nvim-cmp'
+" completion
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
 
-	" vsnip
-	Plug 'hrsh7th/cmp-vsnip'
-	Plug 'hrsh7th/vim-vsnip'
+" Telescope
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzy-native.nvim'
+
+" vsnip
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
 
 call plug#end()
 
-" Init plugins
-lua require('plugins/plugins')
-lua require('lsp-keybinds')
-lua require('nvim-cmp')
+lua require('plugins/lsp-keybinds')
+lua require('plugins/telescope')
+lua require('plugins/nvim-cmp')
 
 " Initialize trouble
 lua require("plugins/trouble")
 lua require("plugins/nvim-web-devicons")
+
+" Telescope
+nnoremap ff <cmd>Telescope find_files<cr>
+nnoremap fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 inoremap <Tab> <C-R>=CleverTab()<CR>
 nnoremap <C-a> <cmd>TroubleToggle<cr>

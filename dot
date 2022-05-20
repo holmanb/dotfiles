@@ -22,9 +22,9 @@ function setpath(){
 }
 
 function files(){
-    install compe-config.lua    ~/.config/nvim/lua/
-    install lsp-keybinds.lua    ~/.config/nvim/lua
+    install lsp-keybinds.lua    ~/.config/nvim/lua/plugged
     install init.vim            ~/.config/nvim/
+    install -t ~/.config/nvim/lua/plugins lsp-keybinds.lua  nvim-cmp.lua  nvim-web-devicons.lua  plugins.lua  telescope.lua  trouble.lua
     install .vimrc              ~/
     install .ctags              ~/
     install .bashrc             ~/
@@ -51,6 +51,7 @@ function apps(){
 
 function dir(){
     mkdir -p ~/.config/nvim/plugged/
+    mkdir -p ~/.config/nvim/lua/plugins/
     mkdir -p ~/.config/nvim/lua/
     mkdir -p ~/.config/zsh/zsh-git-prompt
     mkdir -p ~/.vim/autoload/
@@ -73,7 +74,7 @@ function __install(){
 
 function __pull(){
     install ~/.config/nvim/*.vim .
-    install ~/.config/nvim/lua/*.lua .
+    install ~/.config/nvim/lua/plugins/* .
     install ~/.vimrc .
     install ~/.muttrc .
     install ~/.zshrc .

@@ -52,25 +52,25 @@ require "lspconfig".rust_analyzer.setup {
 	capabilites = capabilities, -- from nvim-cmp
 }
 
---diagnosticMode = "openFilesOnly"
--- Flake8/efm-server config
-require "lspconfig".efm.setup {
-    capabilites = capabilities, -- from nvim-cmp
-    on_attach = on_attach,
-    init_options = {documentFormatting = true},
-    settings = {
-        -- rootMarkers = {".git/"},
-	filetypes = { 'python' },
-        languages = {
-            python = {{
-		lintCommand= "flake8 --exit-zero --stdin-display-name ${INPUT} -",
-		lintStdin= true,
-		lintIgnoreExitCode = true,
-		lintFormats = {"%f:%l:%c: %m"}
-		}}
-        },
-    }
-}
+----diagnosticMode = "openFilesOnly"
+---- Flake8/efm-server config
+--require "lspconfig".efm.setup {
+--    capabilites = capabilities, -- from nvim-cmp
+--    on_attach = on_attach,
+--    init_options = {documentFormatting = true},
+--    settings = {
+--        -- rootMarkers = {".git/"},
+--	filetypes = { 'python' },
+--        languages = {
+--            python = {{
+--		lintCommand= "flake8 --exit-zero --stdin-display-name ${INPUT} -",
+--		lintStdin= true,
+--		lintIgnoreExitCode = true,
+--		lintFormats = {"%f:%l:%c: %m"}
+--		}}
+--        },
+--    }
+--}
 
 -- yamlls config
 require'lspconfig'.yamlls.setup{
