@@ -47,7 +47,40 @@ require "lspconfig".pyright.setup {
 	}
 }
 
+-- rust
 require "lspconfig".rust_analyzer.setup {
+	on_attach = on_attach,
+	capabilites = capabilities,
+}
+
+
+-- bash
+require "lspconfig".bashls.setup {
+
+	on_attach = on_attach,
+	capabilites = capabilities,
+}
+
+-- vim
+require "lspconfig".vimls.setup {
+	on_attach = on_attach,
+	capabilites = capabilities, -- from nvim-cmp
+}
+
+-- go
+require "lspconfig".gopls.setup {
+	on_attach = on_attach,
+	capabilites = capabilities, -- from nvim-cmp
+}
+
+--ansible
+require "lspconfig".ansiblels.setup {
+	on_attach = on_attach,
+	capabilites = capabilities, -- from nvim-cmp
+}
+
+-- markdown
+require "lspconfig".remark_ls.setup {
 	on_attach = on_attach,
 	capabilites = capabilities, -- from nvim-cmp
 }
@@ -116,3 +149,4 @@ require'lspconfig'.sumneko_lua.setup {
     },
   },
 }
+
