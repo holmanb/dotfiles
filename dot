@@ -43,6 +43,9 @@ function apps(){
     npm i -g clangd
     pip install gmail-yaml-filters
     GO111MODULE=on go get golang.org/x/tools/gopls@latest
+    wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Ubuntu.zip
+    unzip  Ubuntu.zip -d ~/.local/share/fonts
+    fc-cache -fv
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     zsh -c "git clone git@github.com/zsh-users/zsh-autosuggestions.git ~/.config/zsh/plugins/zsh-autosuggestions"
@@ -53,10 +56,11 @@ function dir(){
     mkdir -p ~/.config/nvim/plugged/
     mkdir -p ~/.config/nvim/lua/plugins/
     mkdir -p ~/.config/nvim/lua/
-    mkdir -p ~/.config/zsh/zsh-git-prompt
-    mkdir -p ~/.config/efm-langserver
+    mkdir -p ~/.config/zsh/zsh-git-prompt/
+    mkdir -p ~/.config/efm-langserver/
     mkdir -p ~/.vim/autoload/
     mkdir -p ~/.mutt/cache
+    mkdir -p ~/.fonts/
     echo $NPM_PACKAGES/bin
     mkdir -p $NPM_PACKAGES/bin # from .zshrc
 }
