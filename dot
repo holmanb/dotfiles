@@ -54,6 +54,7 @@ function dir(){
     mkdir -p ~/.config/nvim/lua/plugins/
     mkdir -p ~/.config/nvim/lua/
     mkdir -p ~/.config/zsh/zsh-git-prompt
+    mkdir -p ~/.config/efm-langserver
     mkdir -p ~/.vim/autoload/
     mkdir -p ~/.mutt/cache
     echo $NPM_PACKAGES/bin
