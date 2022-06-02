@@ -71,6 +71,9 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
 
+" Git
+Plug 'tpope/vim-fugitive'
+
 " vsnip
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
@@ -90,6 +93,13 @@ nnoremap ff <cmd>Telescope find_files<cr>
 nnoremap fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+"Fugitive
+nnoremap gh <cmd>0Gclog<cr>
+
+" Trouble
+nnoremap tt <cmd>Trouble<cr>
+nnoremap tc <cmd>TroubleClose<cr>
 
 inoremap <Tab> <C-R>=CleverTab()<CR>
 nnoremap <C-a> <cmd>TroubleToggle<cr>
