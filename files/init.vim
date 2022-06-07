@@ -7,6 +7,8 @@ set relativenumber
 set cursorline
 set showmatch
 set tw=72 fo=cqt wm=0
+set foldmethod=indent
+set nofoldenable
 
 " jump to the last position when reopening a file
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -102,9 +104,18 @@ nnoremap gh <cmd>0Gclog<cr>
 nnoremap tt <cmd>Trouble<cr>
 nnoremap tc <cmd>TroubleClose<cr>
 
-inoremap <Tab> <C-R>=CleverTab()<CR>
+" Misc
+inoremap <Tab> <C-R>=CleverTab()<cr>
 nnoremap <C-a> <cmd>TroubleToggle<cr>
 autocmd FileType python setlocal textwidth=79 formatoptions+=t
+
+" Fold keymaps
+" za - unfold cursor 1 level
+" zr - unfold all 1 level
+" zR - unfold all
+" zM - fold all
+nnoremap <S-f> zj  " jump forward to next fold
+nnoremap <S-b> zk  " jump back to last fold
 
 "lua << EOF
 "vim.lsp.set_log_level("debug")
