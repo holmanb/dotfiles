@@ -37,11 +37,10 @@ function files(){
 
 function apps(){
     npm config set prefix "$HOME/.npm-packages"
-    npm i -g pyright
-    npm i -g bash-language-server
-    npm i -g vim-language-server
-    npm i -g clangd
-    npm i -g remark
+    npm i -g pyright@latest
+    npm i -g bash-language-server@latest
+    npm i -g vim-language-server@latest
+    npm i -g remark@latest
     npm i -g @ansible/ansible-language-server
     pip install gmail-yaml-filters
     go install golang.org/x/tools/gopls@latest
