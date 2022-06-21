@@ -67,6 +67,7 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'kyazdani42/nvim-web-devicons'
+Plug 'jose-elias-alvarez/null-ls.nvim'
 
 " Telescope
 Plug 'nvim-lua/plenary.nvim'

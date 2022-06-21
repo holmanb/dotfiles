@@ -33,11 +33,20 @@ local nvim_lsp = require('lspconfig')
 
 end
 
+require "cmp".setup {
+  sources = {
+    { name = 'nvim_lsp' }
+  }
+}
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 require "lspconfig".pyright.setup {
 	on_attach = on_attach,
-	capabilites = capabilities, -- from nvim-cmp
+	capabilities = capabilities, -- from nvim-cmp
 	settings = {
 		python = {
 			analysis = {
@@ -50,7 +59,7 @@ require "lspconfig".pyright.setup {
 -- rust
 require "lspconfig".rust_analyzer.setup {
 	on_attach = on_attach,
-	capabilites = capabilities,
+	capabilities = capabilities,
 }
 
 
@@ -58,32 +67,47 @@ require "lspconfig".rust_analyzer.setup {
 require "lspconfig".bashls.setup {
 
 	on_attach = on_attach,
-	capabilites = capabilities,
+	capabilities = capabilities,
 }
 
 -- vim
 require "lspconfig".vimls.setup {
 	on_attach = on_attach,
-	capabilites = capabilities, -- from nvim-cmp
+	capabilities = capabilities,
 }
 
 -- go
 require "lspconfig".gopls.setup {
 	on_attach = on_attach,
-	capabilites = capabilities, -- from nvim-cmp
+	capabilities = capabilities,
 }
 
 --ansible
 require "lspconfig".ansiblels.setup {
 	on_attach = on_attach,
-	capabilites = capabilities, -- from nvim-cmp
+	capabilities = capabilities,
 }
 
 -- markdown
 require "lspconfig".remark_ls.setup {
 	on_attach = on_attach,
-	capabilites = capabilities, -- from nvim-cmp
+	capabilities = capabilities,
 }
+
+-- null-ls
+local null_ls = require "null-ls"
+local sources = {
+
+	null_ls.builtins.code_actions.shellcheck,
+
+	-- diagnostics
+	null_ls.builtins.diagnostics.checkmake,
+	null_ls.builtins.diagnostics.flake8,
+	null_ls.builtins.diagnostics.gitlint,
+	null_ls.builtins.diagnostics.rstcheck,
+	null_ls.builtins.diagnostics.codespell
+}
+null_ls.setup({ sources = sources })
 
 ----diagnosticMode = "openFilesOnly"
 ---- Flake8/efm-server config
