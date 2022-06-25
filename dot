@@ -24,7 +24,7 @@ function setpath(){
 function files(){
     install lsp-keybinds.lua    ~/.config/nvim/lua/plugged
     install init.vim            ~/.config/nvim/
-    install -t ~/.config/nvim/lua/plugins lsp-keybinds.lua  nvim-cmp.lua  nvim-web-devicons.lua  plugins.lua  telescope.lua  trouble.lua
+    install -t ~/.config/nvim/lua/plugins lsp-keybinds.lua  nvim-cmp.lua  nvim-web-devicons.lua  telescope.lua  trouble.lua
     install .vimrc              ~/
     install .ctags              ~/
     install .bashrc             ~/
@@ -42,7 +42,8 @@ function apps(){
     npm i -g vim-language-server@latest
     npm i -g remark@latest
     npm i -g @ansible/ansible-language-server
-    pip install gmail-yaml-filters
+    pip install --user gmail-yaml-filters
+    pip install --user codespell
     go install golang.org/x/tools/gopls@latest
 
     # Font
@@ -53,10 +54,11 @@ function apps(){
     # plug
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    zsh -c "git clone git@github.com:olivierverdier/zsh-git-prompt.git ~/.config/zsh/zsh-git-prompt/zsh-git-prompt"
+    zsh -c "git clone git@github.com:olivierverdier/zsh-git-prompt.git ~/.config/zsh/zsh-git-prompt/"
 }
 
 function dir(){
+    mkdir -p ~/Downloads/
     mkdir -p ~/.config/nvim/plugged/
     mkdir -p ~/.config/nvim/lua/plugins/
     mkdir -p ~/.config/nvim/lua/

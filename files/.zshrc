@@ -32,7 +32,7 @@ bindkey "^[[3~" delete-char
 
 #source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/.config/zsh/zsh-git-prompt/zsh-git-prompt/zshrc.sh
+source ~/.config/zsh/zsh-git-prompt/zshrc.sh
 
 # NPM packages in homedir
 export PATH="$PATH:$HOME/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/go/bin:$HOME/.local/bin:$HOME/workspace/dotfiles/:$NPM_PACKAGES/bin:/usr/local/opt/llvm/bin:$HOME/workspace/ktest:$HOME/workspace/uss-tableflip/scripts:$HOME/go/bin:$HOME/workspace/lua-language-server/bin"
