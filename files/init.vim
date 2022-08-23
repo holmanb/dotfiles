@@ -84,6 +84,12 @@ Plug 'tpope/vim-fugitive'
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 
+" status line
+Plug 'nvim-lualine/lualine.nvim'
+
+" blank lines
+Plug 'lukas-reineke/indent-blankline.nvim'
+
 call plug#end()
 
 lua require('plugins/lsp-keybinds')

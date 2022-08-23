@@ -11,14 +11,14 @@ export LC_CTYPE="en_US.UTF-8"
 autoload -Uz compinit
 compinit
 export HISTFILE=~/.histfile
-export HISTSIZE=50000
-export SAVEHIST=50000
+export HISTSIZE=50000000
+export SAVEHIST=50000000
 export EDITOR=nvim
+export BROWSER=firefox
 export GIT_PROMPT_EXECUTABLE="haskell"
-export DEBEMAIL="brett.holman@canonical.com"
-export DEBFULLNAME="Brett Holman"
 export PROMPT='%B%m%F{green}%~%b%F{reset}$(git_super_status) '
 export QT_QPA_PLATFORM=wayland
+export MOZ_ENABLE_WAYLAND=1
 export WINEPREFIX="$HOME/.wine32"
 export WINEARCH=win32
 export NPM_PACKAGES="$HOME/.npm-packages"
@@ -26,6 +26,12 @@ export PYENV_ROOT="$HOME/workspace/pyenv"
 export CC="gcc"
 export STANDUP_D="$HOME/Documents/standup/"
 export STANDUP_F="$STANDUP_D/standup.txt"
+
+# because debian
+export QUILT_PATCHES=debian/patches
+export QUILT_REFRESH_ARGS="-p ab --no-timestamps --no-index"
+export DEBEMAIL="brett.holman@canonical.com"
+export DEBFULLNAME="Brett Holman"
 
 bindkey -e
 bindkey "^[[3~" delete-char
