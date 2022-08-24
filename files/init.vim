@@ -127,6 +127,22 @@ autocmd FileType python setlocal textwidth=79 formatoptions+=t
 nnoremap <S-f> zj  " jump forward to next fold
 nnoremap <S-b> zk  " jump back to last fold
 
+" Window Resize
+" =============
+" alt + [hjkl] - change window size
+" <C-w> T      - open current window in a different tab
+" g-t          - switch between tabs
+"
+" TODO:
+" - combine background tab into foreground
+" - rotate horizontal to vertical
+" - anything else needed to get tmux parity with former workflow?
+"
+noremap <M-j> :resize +5<CR>
+noremap <M-k> :resize -5<CR>
+noremap <M-h> :vertical:resize -5<CR>
+noremap <M-l> :vertical:resize +5<CR>
+
 "lua << EOF
 "vim.lsp.set_log_level("debug")
 "EOF
