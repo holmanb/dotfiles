@@ -90,7 +90,13 @@ Plug 'nvim-lualine/lualine.nvim'
 " blank lines
 Plug 'lukas-reineke/indent-blankline.nvim'
 
+" Rust
+Plug 'simrat39/rust-tools.nvim'
+Plug 'mfussenegger/nvim-dap'
+
 call plug#end()
+
+set completeopt=menu,menuone,noselect
 
 lua require('plugins/lsp-keybinds')
 lua require('plugins/telescope')
