@@ -9,6 +9,8 @@ set showmatch
 set tw=72 fo=cqt wm=0
 set foldmethod=indent
 set nofoldenable
+set tabstop=4
+set shiftwidth=4
 
 " jump to the last position when reopening a file
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -22,6 +24,10 @@ autocmd VimEnter * let w:created=1
 " Trailing whitespace
 highlight WhitespaceEOL ctermbg=red ctermfg=white guibg=#592929
 call matchadd('WhitespaceEOL', '\s\+$')
+
+" treesitter uppercase variable names are same color as strings, lets do white
+hi pythonTSConstant ctermfg=white
+
 
 " Tabs after any character
 call matchadd('WhitespaceEOL', '[^\t]\+\t\ze')
@@ -38,18 +44,6 @@ execute "set colorcolumn=" . join(range(80,80), ',')
 " Popup menu color
 " highlight Pmenu ctermbg=gray guibg=gray
 highlight Pmenu ctermbg=DarkGrey guibg=DarkGrey
-
-
-" Tab complete if text exists on the line
-"
-" directly from :help complete
-function! CleverTab()
-   if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
-      return "\<Tab>"
-   else
-      return "\<C-N>"
-   endif
-endfunction
 
 " Plugins
 call plug#begin('~/.config/nvim/plugged/')
@@ -76,6 +70,7 @@ Plug 'nvim-telescope/telescope-fzy-native.nvim'
 
 " Highlight
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/playground'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -121,7 +116,6 @@ nnoremap tt <cmd>Trouble<cr>
 nnoremap tc <cmd>TroubleClose<cr>
 
 " Misc
-inoremap <Tab> <C-R>=CleverTab()<cr>
 nnoremap <C-a> <cmd>TroubleToggle<cr>
 autocmd FileType python setlocal textwidth=79 formatoptions+=t
 

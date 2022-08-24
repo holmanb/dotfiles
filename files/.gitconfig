@@ -4,6 +4,7 @@
 	signingkey = 9A5EBD85
 [core]
 	editor = nvim
+	pager = less -JM --tabs=4
 [init]
 	defaultBranch = main
 [sendemail]

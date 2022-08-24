@@ -84,8 +84,8 @@ nvim_lsp.remark_ls.setup {
 nvim_lsp.ccls.setup {
   init_options = {
     cache = {
-      directory = ".ccls-cache";
-    };
+		directory = ".ccls-cache";
+    }
   }
 }
 
@@ -102,17 +102,17 @@ local null_ls = require "null-ls".setup({
 
 -- yamlls config
 nvim_lsp.yamlls.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  settings = {
-    yaml = {
-      schemas = {
-        ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
-        ["https://raw.githubusercontent.com/canonical/cloud-init/main/cloudinit/config/schemas/versions.schema.cloud-config.json"] = "user-data*yml"
-	-- add ansible schemas
-      }
-    }
-  }
+	on_attach = on_attach,
+	capabilities = capabilities,
+	settings = {
+		yaml = {
+			schemas = {
+				["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+				["https://raw.githubusercontent.com/canonical/cloud-init/main/cloudinit/config/schemas/versions.schema.cloud-config.json"] = "user-data*yml"
+				-- add ansible schemas
+			}
+		}
+	}
 }
 
 -- sumneko lua server
@@ -121,28 +121,28 @@ table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
 nvim_lsp.sumneko_lua.setup {
-  settings = {
-    Lua = {
-      runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-        version = 'LuaJIT',
-        -- Setup your lua path
-        path = runtime_path,
-      },
-      diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = {'vim'},
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
-      },
-      -- Do not send telemetry data
-      telemetry = {
-        enable = false,
-      },
-    },
-  },
+	settings = {
+		Lua = {
+			runtime = {
+				-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+				version = 'LuaJIT',
+				-- Setup your lua path
+				path = runtime_path,
+			},
+			diagnostics = {
+				-- Get the language server to recognize the `vim` global
+				globals = {'vim'},
+			},
+			workspace = {
+				-- Make the server aware of Neovim runtime files
+				library = vim.api.nvim_get_runtime_file("", true),
+			},
+			-- Do not send telemetry data
+			telemetry = {
+				enable = false,
+			},
+		},
+	},
 }
 
 local cmp = require "cmp"
@@ -167,99 +167,83 @@ cmp.setup {
 	}),
 	sources = cmp.config.sources({
 		{ name = 'nvim_lsp' },
-	}, {
+	},{
 		{ name = 'vsnip' },
-	}, {
+	},{
 		{ name = 'path' },
-	}, {
+	},{
 		{ name = 'buffer' },
-	}, {
+	},{
 		{ name = 'cmdline' },
-	}, {
+	},{
 		{ name = 'buffer' },
 	})
 }
 
 require 'nvim-treesitter.configs'.setup {
-  -- A list of parser names, or "all"
-  ensure_installed = {
-    "c",
-    "lua",
-    "rust",
-    "go",
-    "bash",
-    "make",
-    "yaml",
-    "markdown"
-  },
-
-  -- Install parsers synchronously (only applied to `ensure_installed`)
-  sync_install = false,
-
-  -- Automatically install missing parsers when entering buffer
-  auto_install = false,
-
-  -- List of parsers to ignore installing (for "all")
-  ignore_install = { },
-
-  highlight = {
-    -- `false` will disable the whole extension
-    enable = true,
-
-    -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
-    -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
-    -- the name of the parser)
-    -- list of language that will be disabled
-    disable = {},
-
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = false,
-  },
+	-- A list of parser names, or "all"
+	ensure_installed = {
+		"c",
+		"lua",
+		"rust",
+		"go",
+		"bash",
+		"make",
+		"yaml",
+		"markdown"
+	},
+	sync_install = true, -- (only applied to `ensure_installed`)
+	auto_install = false,
+	ignore_install = {},
+	highlight = {
+		enable = true,
+		disable = {},
+		additional_vim_regex_highlighting = false,
+	},
+	-- enable TSHighlightCapturesUnderCursor
+	playground = { enable = false }
 }
 
 -- status line
 require('lualine').setup {
-  options = {
-    icons_enabled = true,
-    theme = 'auto',
-    component_separators = { left = ' ', right = ' '},
-    section_separators = { left = ' ', right = ' '},
-    disabled_filetypes = {
-      statusline = {},
-      winbar = {},
-    },
-    ignore_focus = {},
-    always_divide_middle = true,
-    globalstatus = false,
-    refresh = {
-      statusline = 1000,
-      tabline = 1000,
-      winbar = 1000,
-    }
-  },
-  sections = {
-    lualine_a = {'mode'},
-    lualine_b = {'branch', 'diff', 'diagnostics'},
-    lualine_c = {'filename'},
-    lualine_x = {'encoding', 'filetype'},
-    lualine_y = {'progress'},
-    lualine_z = {'location'}
-  },
-  inactive_sections = {
-    lualine_a = {},
-    lualine_b = {},
-    lualine_c = {'filename'},
-    lualine_x = {'location'},
-    lualine_y = {},
-    lualine_z = {}
-  },
-  tabline = {},
-  winbar = {},
-  inactive_winbar = {},
-  extensions = {}
+	options = {
+		icons_enabled = true,
+		theme = 'auto',
+		component_separators = { left = ' ', right = ' '},
+		section_separators = { left = ' ', right = ' '},
+		disabled_filetypes = {
+			statusline = {},
+			winbar = {},
+		},
+		ignore_focus = {},
+		always_divide_middle = true,
+		globalstatus = false,
+		refresh = {
+			statusline = 1000,
+			tabline = 1000,
+			winbar = 1000,
+		}
+	},
+	sections = {
+		lualine_a = {'mode'},
+		lualine_b = {'branch', 'diff', 'diagnostics'},
+		lualine_c = {'filename'},
+		lualine_x = {'encoding', 'filetype'},
+		lualine_y = {'progress'},
+		lualine_z = {'location'}
+	},
+	inactive_sections = {
+		lualine_a = {},
+		lualine_b = {},
+		lualine_c = {'filename'},
+		lualine_x = {'location'},
+		lualine_y = {},
+		lualine_z = {}
+	},
+	tabline = {},
+	winbar = {},
+	inactive_winbar = {},
+	extensions = {}
 }
 
 require("indent_blankline").setup {}
