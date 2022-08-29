@@ -1,3 +1,12 @@
+" TODO:
+" discover:
+" - combine background tab into foreground
+" - rotate horizontal to vertical
+" - anything else needed to get tmux parity with former workflow?
+" - how to jump from one error/warning to the next:so $VIMRUNTIME/syntax/hitest.vim
+" - system man page contents with telescope (keybind: fm)
+" - work on diffviewopen configuration (make highlighting less horrendus)
+
 filetype on
 syntax on
 
@@ -11,6 +20,7 @@ set foldmethod=indent
 set nofoldenable
 set tabstop=4
 set shiftwidth=4
+set fillchars+=diff:╱
 
 " jump to the last position when reopening a file
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -21,12 +31,23 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 autocmd VimEnter * autocmd WinEnter * let w:created=1
 autocmd VimEnter * let w:created=1
 
+" to see the different color groups run:
+"
+"    :so $VIMRUNTIME/syntax/hitest.vim
+"
+
 " Trailing whitespace
 highlight WhitespaceEOL ctermbg=red ctermfg=white guibg=#592929
 call matchadd('WhitespaceEOL', '\s\+$')
 
 " treesitter uppercase variable names are same color as strings, lets do white
 hi pythonTSConstant ctermfg=white
+
+" this is the column that lsp warnings reside in (left of numbers)
+hi SignColumn ctermbg=NONE ctermfg=NONE cterm=NONE
+
+" ew
+hi DiffDelete ctermbg=NONE ctermfg=NONE cterm=NONE
 
 
 " Tabs after any character
@@ -89,6 +110,9 @@ Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'simrat39/rust-tools.nvim'
 Plug 'mfussenegger/nvim-dap'
 
+" diffview
+Plug 'sindrets/diffview.nvim'
+
 call plug#end()
 
 set completeopt=menu,menuone,noselect
@@ -102,11 +126,11 @@ lua require("plugins/trouble")
 lua require("plugins/nvim-web-devicons")
 
 " Telescope
-nnoremap ff <cmd>Telescope find_files<cr>
-nnoremap fg <cmd>Telescope live_grep<cr>
-nnoremap fd <cmd>Telescope grep_string<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap ff <cmd>Telescope find_files<cr>   " file names
+nnoremap fg <cmd>Telescope live_grep<cr>    " entered string
+nnoremap fd <cmd>Telescope grep_string<cr>  " string under cursor
+nnoremap fh <cmd>Telescope help_tags<cr>    " vim help
+nnoremap fm <cmd>Telescope man_pages<cr>    " manpage names
 
 "Fugitive
 nnoremap gh <cmd>0Gclog<cr>
@@ -132,12 +156,6 @@ nnoremap <S-b> zk  " jump back to last fold
 " alt + [hjkl] - change window size
 " <C-w> T      - open current window in a different tab
 " g-t          - switch between tabs
-"
-" TODO:
-" - combine background tab into foreground
-" - rotate horizontal to vertical
-" - anything else needed to get tmux parity with former workflow?
-"
 noremap <M-j> :resize +5<CR>
 noremap <M-k> :resize -5<CR>
 noremap <M-h> :vertical:resize -5<CR>
