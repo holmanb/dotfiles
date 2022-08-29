@@ -20,3 +20,8 @@
   list: linux-aio@kvack.org
   label: linux-aio
   archive: true
+
+-
+  list: linux-man@vger.kernel.org
+  label: linux-man
+  archive: true
