@@ -2,18 +2,47 @@ local nvim_lsp = require('lspconfig')
 local opts = { noremap=true, silent=true }
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+capabilities.offsetEncoding = {'utf-8'}
 
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 
+-- diagnostics
+local signs = { Error = "☢ ", Warn = " ", Hint = " ", Info = "ℹ ", Other = "?" }
+for type, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
+
+-- show diagnostics in  window
+-- note: this setting is global and should be set only once
+vim.o.updatetime = 250
+vim.cmd [[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false, border='rounded'})]]
+
+-- diagnostic hover window
+vim.diagnostic.config({
+  virtual_text = true,
+  signs = true,
+  underline = true,
+  update_in_insert = true,
+  severity_sort = false,
+})
+
+-- diagnostic keymap
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
+-- LSP settings (for overriding per client)
+local handlers =  {
+  ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, {border = "rounded"}),
+  ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, {border = "rounded"}),
+}
+
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
+local on_attach = function(_, bufnr)
 	-- Enable completion triggered by <c-x><c-o>
 	vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -54,30 +83,35 @@ nvim_lsp.pyright.setup {
 nvim_lsp.bashls.setup {
 	on_attach = on_attach,
 	capabilities = capabilities,
+	handlers = handlers,
 }
 
 -- vim
 nvim_lsp.vimls.setup {
 	on_attach = on_attach,
 	capabilities = capabilities,
+	handlers = handlers,
 }
 
 -- go
 nvim_lsp.gopls.setup {
 	on_attach = on_attach,
 	capabilities = capabilities,
+	handlers = handlers,
 }
 
 --ansible
 nvim_lsp.ansiblels.setup {
 	on_attach = on_attach,
 	capabilities = capabilities,
+	handlers = handlers,
 }
 
 -- markdown
 nvim_lsp.remark_ls.setup {
 	on_attach = on_attach,
 	capabilities = capabilities,
+	handlers = handlers,
 }
 
 -- ccls
@@ -86,11 +120,11 @@ nvim_lsp.ccls.setup {
     cache = {
 		directory = ".ccls-cache";
     }
-  }
+  },
 }
 
 -- null-ls
-local null_ls = require "null-ls".setup({
+require "null-ls".setup({
 	sources = {
 		require("null-ls").builtins.code_actions.shellcheck,
 		require("null-ls").builtins.diagnostics.checkmake,
@@ -104,6 +138,7 @@ local null_ls = require "null-ls".setup({
 nvim_lsp.yamlls.setup {
 	on_attach = on_attach,
 	capabilities = capabilities,
+	handlers = handlers,
 	settings = {
 		yaml = {
 			schemas = {
@@ -113,6 +148,14 @@ nvim_lsp.yamlls.setup {
 			}
 		}
 	}
+}
+
+-- c/c++
+--local clang_capabilities = capabilities
+nvim_lsp.clangd.setup {
+	on_attach = on_attach,
+	capabilities = capabilities,
+	handlers = handlers,
 }
 
 -- sumneko lua server
@@ -160,7 +203,7 @@ cmp.setup {
 	mapping = cmp.mapping.preset.insert({
 		['<C-b>'] = cmp.mapping.scroll_docs(-4),
 		['<C-f>'] = cmp.mapping.scroll_docs(4),
-		['<C-Space>'] = cmp.mapping.complete(),
+		['<C-Space>'] = cmp.mapping.complete(0),
 		['<C-e>'] = cmp.mapping.abort(),
 		['<CR>'] = cmp.mapping.confirm({ select = true }),
 		-- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
@@ -193,7 +236,7 @@ require 'nvim-treesitter.configs'.setup {
 		"markdown"
 	},
 	sync_install = true, -- (only applied to `ensure_installed`)
-	auto_install = false,
+	auto_install = true,
 	ignore_install = {},
 	highlight = {
 		enable = true,

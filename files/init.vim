@@ -49,6 +49,14 @@ hi SignColumn ctermbg=NONE ctermfg=NONE cterm=NONE
 " ew
 hi DiffDelete ctermbg=NONE ctermfg=NONE cterm=NONE
 
+hi Pmenu ctermbg=NONE ctermfg=white cterm=NONE
+hi PmenuSbar ctermbg=NONE ctermfg=white cterm=NONE
+hi PmenuSel ctermbg=NONE ctermfg=white cterm=NONE
+hi PmenuThumb ctermbg=NONE ctermfg=white cterm=NONE
+hi link NormalFloat Normal
+hi link Popup Normal
+hi FloatBorder cterm=NONE ctermfg=white ctermbg=NONE
+
 
 " Tabs after any character
 call matchadd('WhitespaceEOL', '[^\t]\+\t\ze')
