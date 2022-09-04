@@ -31,15 +31,20 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 autocmd VimEnter * autocmd WinEnter * let w:created=1
 autocmd VimEnter * let w:created=1
 
+
+" Trailing whitespace
+match errorMsg /\s\+$/
+
+" Tab after character
+match errorMsg /[^\t]\+\t\ze/
+
+" Tab before spaces
+match errorMsg /\t \+\ze/
+
 " to see the different color groups run:
 "
 "    :so $VIMRUNTIME/syntax/hitest.vim
 "
-
-" Trailing whitespace
-highlight WhitespaceEOL ctermbg=red ctermfg=white guibg=#592929
-call matchadd('WhitespaceEOL', '\s\+$')
-
 " treesitter uppercase variable names are same color as strings, lets do white
 hi pythonTSConstant ctermfg=white
 
@@ -58,11 +63,6 @@ hi link Popup Normal
 hi FloatBorder cterm=NONE ctermfg=white ctermbg=NONE
 
 
-" Tabs after any character
-call matchadd('WhitespaceEOL', '[^\t]\+\t\ze')
-
-" Tab before spaces
-call matchadd('WhitespaceEOL', '\t \+\ze')
 
 " Highlight Past Column 80
 "
