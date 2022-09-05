@@ -19,7 +19,7 @@
 [gitubuntu]
 	lpuser = holmanb
 [diff]
-    tool = meld
+	tool = sh -c "nvim -d $2 $5"
 [difftool]
     prompt = false
 [difftool "meld"]

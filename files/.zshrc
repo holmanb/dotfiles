@@ -8,6 +8,7 @@ export LANGUAGE="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
 
+
 autoload -Uz compinit
 compinit
 export HISTFILE=~/.histfile
@@ -15,6 +16,8 @@ export HISTSIZE=50000000
 export SAVEHIST=50000000
 export EDITOR=nvim
 export BROWSER=firefox
+export PAGER=less
+export MANPAGER='nvim +Man\!'
 export GIT_PROMPT_EXECUTABLE="haskell"
 export PROMPT='%B%m%F{green}%~%b%F{reset}$(git_super_status) '
 export QT_QPA_PLATFORM=wayland

@@ -116,10 +116,13 @@ Plug 'lukas-reineke/indent-blankline.nvim'
 
 " Rust
 Plug 'simrat39/rust-tools.nvim'
-Plug 'mfussenegger/nvim-dap'
 
 " diffview
 Plug 'sindrets/diffview.nvim'
+
+" debugger
+Plug 'mfussenegger/nvim-dap'
+Plug 'mfussenegger/nvim-dap-python'
 
 call plug#end()
 
@@ -132,6 +135,13 @@ lua require('plugins/nvim-cmp')
 " Initialize trouble
 lua require("plugins/trouble")
 lua require("plugins/nvim-web-devicons")
+
+" DAP - debug adapter protocol
+lua require("dap-python").setup("~/.virtualenvs/debugpy/bin/python")
+lua require("dap-python").test_runner = 'pytest'
+
+nnoremap dm :lua require('dap-python').test_method()<cr>
+nnoremap dn :lua require('dap-python').test_class()<cr>
 
 " Telescope
 nnoremap ff <cmd>Telescope find_files<cr>   " file names
