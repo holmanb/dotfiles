@@ -129,6 +129,30 @@ Plug 'mfussenegger/nvim-dap-python'
 
 call plug#end()
 
+
+" Vimscript helper functions
+" ==========================
+" consider a lua rewrite
+"
+" Example 1:
+" ----------
+" vim.api.nvim_create_user_command('Upper', 'echo toupper(<q-args>)', { nargs = 1 })
+" :command! -nargs=1 Upper echo toupper(<q-args>)
+"
+" Example 2:
+" ----------
+" vim.api.nvim_create_user_command(
+"    'Upper',
+"    function(opts)
+"        print(string.upper(opts.args))
+"    end,
+"    { nargs = 1 }
+")
+"
+" Source:
+" https://github.com/nanotee/nvim-lua-guide#defining-user-commands
+"
+"
 function Python() range
   echo system('python3 -c '.shellescape(join(getline(a:firstline, a:lastline), "\n")))
 endfunction
