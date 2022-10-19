@@ -18,3 +18,17 @@ autocmd BufNewFile,BufRead,BufFilePre, *.md,*.markdown,*.mdown,*.mkd,*.mdwn,*.md
 if  has("autocmd")
 	 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
+
+" this is the column that lsp warnings reside in (left of numbers)
+hi SignColumn ctermbg=NONE ctermfg=NONE cterm=NONE
+
+" ew
+hi DiffDelete ctermbg=NONE ctermfg=NONE cterm=NONE
+
+hi Pmenu ctermbg=NONE ctermfg=white cterm=NONE
+hi PmenuSbar ctermbg=NONE ctermfg=white cterm=NONE
+hi PmenuSel ctermbg=NONE ctermfg=white cterm=NONE
+hi PmenuThumb ctermbg=NONE ctermfg=white cterm=NONE
+hi link NormalFloat Normal
+hi link Popup Normal
+hi FloatBorder cterm=NONE ctermfg=white ctermbg=NONE

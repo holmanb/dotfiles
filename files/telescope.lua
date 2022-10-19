@@ -3,6 +3,7 @@ local actions = require("telescope.actions")
 require("telescope").setup{
     -- format rg output
   defaults = {
+	initial_mode = "insert",
     mappings = {
     i = {
       ["<C-n>"] = actions.move_selection_next,
@@ -68,3 +69,4 @@ require("telescope").setup{
     }
   }
 }
+

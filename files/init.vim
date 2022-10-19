@@ -12,7 +12,7 @@ syntax on
 
 " Hybrid line numbers
 set number
-set relativenumber
+"set relativenumber
 set cursorline
 set showmatch
 set tw=72 fo=cqt wm=0
@@ -21,6 +21,9 @@ set nofoldenable
 set tabstop=4
 set shiftwidth=4
 set fillchars+=diff:╱
+set mouse=
+autocmd FileType setlocal json expandtab autoindent
+
 
 " jump to the last position when reopening a file
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -94,7 +97,7 @@ Plug 'jose-elias-alvarez/null-ls.nvim'
 
 " Telescope
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
 
 " Highlight
@@ -126,6 +129,48 @@ Plug 'mfussenegger/nvim-dap-python'
 
 call plug#end()
 
+function Python() range
+  echo system('python3 -c '.shellescape(join(getline(a:firstline, a:lastline), "\n")))
+endfunction
+com -range=% -nargs=0 Python :<line1>,<line2>call Python()
+
+function Paste() range
+  echo system('echo '.shellescape(join(getline(a:firstline, a:lastline), "\n")).'| wgetpaste')
+endfunction
+com -range=% -nargs=0 Paste :<line1>,<line2>call Paste()
+
+function Schema() range
+  let tmp_file = '/tmp/nvim-schema-tmp.txt'
+  let path = 'PYTHONPATH=/home/holmanb/cloud-init-a/ '
+  let bin = '/home/holmanb/cloud-init/cloudinit/cmd/main.py '
+  let subpcmd = 'schema -c '
+  let cmd = path.bin.subpcmd.tmp_file
+  echo system('echo '.shellescape(join(getline(a:firstline, a:lastline), "\n")).'> '.tmp_file.';'.cmd)
+endfunction
+com -range=% -nargs=0 Schema :<line1>,<line2>call Schema()
+
+function Lxc_python() range
+  let tmp_file = '/tmp/nvim-lxc-tmp.txt'
+  let container = 'me'
+  let lxc_shell = 'lxc exec '.container.' -- '
+  let lxc_file = 'lxc.py'
+  let lxc_cmd = 'python3 '.lxc_file
+  let cmd = 'lxc file push '.tmp_file.' '.container.'/root/'.lxc_file.'; '.lxc_shell.lxc_cmd
+  let body = shellescape(join(getline(a:firstline, a:lastline), "\n"))
+  let full_cmd = 'echo '.body.'> '.tmp_file.';'.cmd
+  echo 'Transfering:'
+  echo '==========='
+  echo body
+  echo ''
+  echo 'Running:'
+  echo '========'
+  echo cmd
+  echo 'Output:'
+  echo '======='
+  echo system(full_cmd)
+endfunction
+com -range=% -nargs=0 Lxcpython :<line1>,<line2>call Lxc_python()
+
 set completeopt=menu,menuone,noselect
 
 lua require('plugins/lsp-keybinds')
@@ -137,18 +182,36 @@ lua require("plugins/trouble")
 lua require("plugins/nvim-web-devicons")
 
 " DAP - debug adapter protocol
-lua require("dap-python").setup("~/.virtualenvs/debugpy/bin/python")
-lua require("dap-python").test_runner = 'pytest'
+" https://github.com/mfussenegger/nvim-dap-python/pull/66
+lua << EOF
+  local dap = require('dap-python')
+  dap.setup("~/.virtualenvs/debugpy/bin/python")
+  dap.test_runner = 'mypytest'
+  dap.test_runners.mypytest = function(...)
+    local module, args = dap.test_runners.pytest(...)
+    -- many verbs
+    table.insert(args, '-v')
+    table.insert(args, '-v')
+    return module, args
+  end
+EOF
+
 
 nnoremap dm :lua require('dap-python').test_method()<cr>
 nnoremap dn :lua require('dap-python').test_class()<cr>
 
 " Telescope
-nnoremap ff <cmd>Telescope find_files<cr>   " file names
-nnoremap fg <cmd>Telescope live_grep<cr>    " entered string
-nnoremap fd <cmd>Telescope grep_string<cr>  " string under cursor
-nnoremap fh <cmd>Telescope help_tags<cr>    " vim help
-nnoremap fm <cmd>Telescope man_pages<cr>    " manpage names
+" =========
+" file names
+nnoremap ff <cmd>Telescope find_files<cr>
+" entered string
+nnoremap fg <cmd>Telescope live_grep<cr>
+" string under cursor
+nnoremap fd <cmd>Telescope grep_string<cr>
+" vim help
+nnoremap fh <cmd>Telescope help_tags<cr>
+" manpage names
+nnoremap fm <cmd>Telescope man_pages<cr>
 
 "Fugitive
 nnoremap gh <cmd>0Gclog<cr>
@@ -160,6 +223,9 @@ nnoremap tc <cmd>TroubleClose<cr>
 " Misc
 nnoremap <C-a> <cmd>TroubleToggle<cr>
 autocmd FileType python setlocal textwidth=79 formatoptions+=t
+
+" Terminal mode
+tnoremap jk <C-\><C-n>
 
 " Fold keymaps
 " za - unfold cursor 1 level
@@ -178,6 +244,7 @@ noremap <M-j> :resize +5<CR>
 noremap <M-k> :resize -5<CR>
 noremap <M-h> :vertical:resize -5<CR>
 noremap <M-l> :vertical:resize +5<CR>
+
 
 "lua << EOF
 "vim.lsp.set_log_level("debug")

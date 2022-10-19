@@ -29,3 +29,5 @@
 [blame]
 	coloring = highlightRecent
 	date = human
+[merge]
+	tool = meld

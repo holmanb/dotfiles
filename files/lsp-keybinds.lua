@@ -108,7 +108,21 @@ nvim_lsp.ansiblels.setup {
 }
 
 -- markdown
-nvim_lsp.remark_ls.setup {
+-- nvim_lsp.remark_ls.setup {
+-- 	on_attach = on_attach,
+-- 	capabilities = capabilities,
+-- 	handlers = handlers,
+-- }
+
+-- typescript/javascript
+nvim_lsp.tsserver.setup {
+	on_attach = on_attach,
+	capabilities = capabilities,
+	handlers = handlers,
+}
+
+-- jsonls
+nvim_lsp.jsonls.setup {
 	on_attach = on_attach,
 	capabilities = capabilities,
 	handlers = handlers,
@@ -131,7 +145,8 @@ require "null-ls".setup({
 		require("null-ls").builtins.diagnostics.flake8,
 		require("null-ls").builtins.diagnostics.gitlint,
 		require("null-ls").builtins.diagnostics.rstcheck,
-		require("null-ls").builtins.diagnostics.codespell
+		require("null-ls").builtins.diagnostics.codespell,
+		require("null-ls").builtins.diagnostics.eslint
 	}})
 
 -- yamlls config
@@ -143,7 +158,7 @@ nvim_lsp.yamlls.setup {
 		yaml = {
 			schemas = {
 				["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
-				["https://raw.githubusercontent.com/canonical/cloud-init/main/cloudinit/config/schemas/versions.schema.cloud-config.json"] = "user-data*yml"
+				["https://raw.githubusercontent.com/canonical/cloud-init-a/main/cloudinit/config/schemas/versions.schema.cloud-config.json"] = "*yml"
 				-- add ansible schemas
 			}
 		}
@@ -232,6 +247,7 @@ require 'nvim-treesitter.configs'.setup {
 		"go",
 		"bash",
 		"make",
+		"javascript",
 		"yaml",
 		"markdown"
 	},
