@@ -1,0 +1,17 @@
+- name: Get wgetpaste source
+  ansible.builtin.git:
+    repo: https://github.com/zlin/wgetpaste.git
+    dest: /home/holmanb/.build/wgetpaste
+    version: "2.23"
+  register: nvim
+
+- name: Symlink wgetpaste source to path
+  ansible.builtin.file:
+    src: /home/holmanb/.build/wgetpaste/wgetpaste
+    dest: /home/holmanb/bin/wgetpaste
+    state: link
+
+- name: Copy wgetpaste config
+  ansible.builtin.copy:
+    src: ./files/wgetpaste.conf
+    dest: /home/holmanb/.wgetpaste.conf

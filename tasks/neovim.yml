@@ -1,0 +1,74 @@
+- name: Create directories
+  file:
+    path: "{{item}}"
+    state: directory
+  loop:
+    - /home/holmanb/.build
+    - /home/holmanb/.vim/autoload
+    - /home/holmanb/.config/nvim/lua/plugins
+
+- name: Get neovim source
+  ansible.builtin.git:
+    repo: https://github.com/neovim/neovim.git
+    dest: /home/holmanb/.build/neovim
+    version: v0.8.0
+  register: nvim
+
+- name: Clean builddir
+  community.general.make:
+    chdir: /home/holmanb/.build/neovim
+    target: distclean
+  when: nvim.changed
+
+- name: Build neovim
+  community.general.make:
+    chdir: /home/holmanb/.build/neovim
+    params:
+      CMAKE_BUILD_TYPE: Release
+      NUM_THREADS: 4
+  when: nvim.changed
+
+- name: Install neovim
+  become: true
+  community.general.make:
+    chdir: /home/holmanb/.build/neovim
+    target: install
+  when: nvim.changed
+
+- name: Install init.vim
+  ansible.builtin.copy:
+    src: ./files/init.vim
+    dest: /home/holmanb/.config/nvim
+
+- name: Check if plug is installed
+  ansible.builtin.stat:
+    path: /home/holmanb/.vim/autoload/plug.vim
+  register: plug
+
+- name: Install plugin configs
+  ansible.builtin.copy:
+    src: "./files/{{item}}"
+    dest: /home/holmanb/.config/nvim/lua/plugins/
+  loop:
+    - lsp-keybinds.lua
+    - nvim-cmp.lua
+    - nvim-web-devicons.lua
+    - telescope.lua
+    - trouble.lua
+
+- name: Install plug
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    dest: /home/holmanb/.vim/autoload/plug.vim
+  when: not plug.stat.exists
+
+- name: Install plugins using plug
+  ansible.builtin.shell:
+    cmd: "nvim +PlugInstall +q +q"
+  register: install
+  when: not plug.stat.exists
+
+- name: Update plugins using plug (run always when PlugInstall not run)
+  ansible.builtin.shell:
+    cmd: "nvim +PlugUpdate +q +q"
+  when: not install.changed

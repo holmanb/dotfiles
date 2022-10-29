@@ -1,0 +1,11 @@
+- name: Install npm packages
+  community.general.npm:
+    name: "{{ item }}"
+    global: true
+    state: absent
+  loop:
+    - pyright
+    - bash-language-server
+    - vim-language-server
+    - remark
+    - '@ansible/ansible-language-server'

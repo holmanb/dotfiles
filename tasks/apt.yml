@@ -1,0 +1,42 @@
+- name: Apt upgrade
+  become: true
+  ansible.builtin.apt:
+    update_cache: yes
+    upgrade: yes
+
+- name: Install distro packages
+  become: true
+  ansible.builtin.apt:
+    update_cache: no
+    pkg:
+
+    # cli tools
+    - ripgrep
+    - fd-find
+    - tmux
+    - zsh
+
+    # build
+    - gcc
+    - clang
+    - make
+
+      # build: neovim
+    - ninja-build
+    - gettext
+    - libtool
+    - libtool-bin
+    - autoconf
+    - automake
+    - cmake
+    - g++
+    - pkg-config
+    - unzip
+    - curl
+    - doxygen
+
+    # language package managers
+    - python3-pip
+    - npm
+    - golang
+    - cargo
