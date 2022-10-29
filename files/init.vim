@@ -153,10 +153,37 @@ call plug#end()
 " https://github.com/nanotee/nvim-lua-guide#defining-user-commands
 "
 "
-function Python() range
-  echo system('python3 -c '.shellescape(join(getline(a:firstline, a:lastline), "\n")))
-endfunction
-com -range=% -nargs=0 Python :<line1>,<line2>call Python()
+lua << EOF
+function create_function(c_opts)
+	vim.api.nvim_create_user_command(
+		c_opts.name,
+		function(opts)
+			-- build command
+			lines = vim.api.nvim_buf_get_lines(
+				0,
+				opts.line1 - 1,  -- 0-based index
+				opts.line2,
+				true
+			)
+			out = table.concat(lines, '\n')
+			command = c_opts.command .. ' "' .. out .. '"\n'
+			print(vim.fn.system(command))
+		end,
+		{
+			nargs = 0,
+			range = '%'
+		}
+	)
+end
+create_function{
+	name = 'Python',
+	command = 'python3 -c'
+}
+create_function{
+	name = 'Sh',
+	command = 'sh -c'
+}
+EOF
 
 function Paste() range
   echo system('echo '.shellescape(join(getline(a:firstline, a:lastline), "\n")).'| wgetpaste')
