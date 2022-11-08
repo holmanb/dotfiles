@@ -127,68 +127,11 @@ Plug 'sindrets/diffview.nvim'
 Plug 'mfussenegger/nvim-dap'
 Plug 'mfussenegger/nvim-dap-python'
 
+" range runner
+Plug 'holmanb/range-runner.nvim'
+
 call plug#end()
 
-
-" Vimscript helper functions
-" ==========================
-" consider a lua rewrite
-"
-" Example 1:
-" ----------
-" vim.api.nvim_create_user_command('Upper', 'echo toupper(<q-args>)', { nargs = 1 })
-" :command! -nargs=1 Upper echo toupper(<q-args>)
-"
-" Example 2:
-" ----------
-" vim.api.nvim_create_user_command(
-"    'Upper',
-"    function(opts)
-"        print(string.upper(opts.args))
-"    end,
-"    { nargs = 1 }
-")
-"
-" Source:
-" https://github.com/nanotee/nvim-lua-guide#defining-user-commands
-"
-"
-lua << EOF
-function create_function(c_opts)
-	vim.api.nvim_create_user_command(
-		c_opts.name,
-		function(opts)
-			-- build command
-			lines = vim.api.nvim_buf_get_lines(
-				0,
-				opts.line1 - 1,  -- 0-based index
-				opts.line2,
-				true
-			)
-			out = table.concat(lines, '\n')
-			command = c_opts.command .. ' "' .. out .. '"\n'
-			print(vim.fn.system(command))
-		end,
-		{
-			nargs = 0,
-			range = '%'
-		}
-	)
-end
-create_function{
-	name = 'Python',
-	command = 'python3 -c'
-}
-create_function{
-	name = 'Sh',
-	command = 'sh -c'
-}
-EOF
-
-function Paste() range
-  echo system('echo '.shellescape(join(getline(a:firstline, a:lastline), "\n")).'| wgetpaste')
-endfunction
-com -range=% -nargs=0 Paste :<line1>,<line2>call Paste()
 
 function Schema() range
   let tmp_file = '/tmp/nvim-schema-tmp.txt'
@@ -246,7 +189,6 @@ lua << EOF
     return module, args
   end
 EOF
-
 
 nnoremap dm :lua require('dap-python').test_method()<cr>
 nnoremap dn :lua require('dap-python').test_class()<cr>
