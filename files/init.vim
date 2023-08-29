@@ -121,7 +121,7 @@ Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'simrat39/rust-tools.nvim'
 
 " diffview
-Plug 'sindrets/diffview.nvim'
+" Plug 'sindrets/diffview.nvim'
 
 " debugger
 Plug 'mfussenegger/nvim-dap'

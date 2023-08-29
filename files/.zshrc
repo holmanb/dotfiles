@@ -45,9 +45,10 @@ bindkey "^[[3~" delete-char
 #source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/workspace/zsh-git-prompt/zshrc.sh
+source /home/holmanb/Documents/creds/novarc
 
 # NPM packages in homedir
-export PATH="$PATH:$HOME/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/go/bin:$HOME/.local/bin:$HOME/workspace/dotfiles/:$NPM_PACKAGES/bin:/usr/local/opt/llvm/bin:$HOME/workspace/ktest:$HOME/workspace/uss-tableflip/scripts:$HOME/go/bin:$HOME/workspace/lua-language-server/bin"
+export PATH="$PATH:$HOME/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/go/bin:$HOME/.local/bin:$HOME/workspace/dotfiles/:$NPM_PACKAGES/bin:/usr/local/opt/llvm/bin:$HOME/workspace/ktest:$HOME/workspace/uss-tableflip/scripts:$HOME/go/bin:$HOME/workspace/lua-language-server/bin/:$HOME/bin/platform-tools"
 
 test -f $HOME/.env && . $HOME/.env
 case "$(uname -s)" in
@@ -65,6 +66,7 @@ if [ -x /usr/bin/dircolors ]; then
 	alias grep='grep --color=auto'
 	alias fgrep='fgrep --color=auto'
 	alias egrep='egrep --color=auto'
+	alias dmesg='dmesg --color=auto'
 fi
 
 # I'm that lazy
@@ -144,7 +146,14 @@ vgrep() {
   | awk '{print $1}' | xargs -I{} -o vgrep --show {}
 }
 
+alias weather="curl https://v2.wttr.in/"
+
 #eval "$(pyenv init --path)"
 #eval "$(pyenv init -)"
 
 alias luamake=/home/holmanb/workspace/lua-language-server/3rd/luamake/luamake
+
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

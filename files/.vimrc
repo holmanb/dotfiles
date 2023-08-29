@@ -4,7 +4,7 @@ set ts=4 sts=4 sw=4 expandtab autoindent fileformat=unix
 set cursorline
 set showmatch
 set completeopt=menuone,noselect
-colo peachpuff " looks nice with white background
+colo default " looks nice with white background
 let g:netrw_banner=0
 syntax on
 
