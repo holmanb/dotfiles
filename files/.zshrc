@@ -67,6 +67,7 @@ if [ -x /usr/bin/dircolors ]; then
 	alias fgrep='fgrep --color=auto'
 	alias egrep='egrep --color=auto'
 	alias dmesg='dmesg --color=auto'
+	alias htop='htop -s PERCENT_CPU'
 fi
 
 # I'm that lazy
