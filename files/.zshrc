@@ -148,6 +148,7 @@ vgrep() {
 }
 
 alias weather="curl https://v2.wttr.in/"
+alias ghettodeb="DEB_BUILD_OPTIONS=nocheck packages/bddeb -d"
 
 #eval "$(pyenv init --path)"
 #eval "$(pyenv init -)"
