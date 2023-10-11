@@ -305,7 +305,7 @@ require('lualine').setup {
 	extensions = {}
 }
 
-require("indent_blankline").setup {}
+require("ibl").setup {}
 
 -- rust-tools integrates with lsp server
 require("rust-tools").setup {}
