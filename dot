@@ -101,7 +101,7 @@ function __git(){
     "$@"
 }
 
-check_dep install zsh curl pip npm go vgrep
+check_dep install zsh curl pip npm go
 
 ([ "$1" = push ] || [ "$1" = pull ] || [ "$1" = install ]) && setpath "__$1" && exit 0
 
