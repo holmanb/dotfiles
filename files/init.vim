@@ -130,6 +130,10 @@ Plug 'mfussenegger/nvim-dap-python'
 " range runner
 Plug 'holmanb/range-runner.nvim'
 
+" LSP Package manager
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
+
 call plug#end()
 
 
@@ -174,6 +178,11 @@ lua require('plugins/nvim-cmp')
 " Initialize trouble
 lua require("plugins/trouble")
 lua require("plugins/nvim-web-devicons")
+
+" Mason package LSP manager
+lua require("mason").setup()
+lua require("mason-lspconfig").setup{ automatic_installation = true, }
+
 
 " DAP - debug adapter protocol
 " https://github.com/mfussenegger/nvim-dap-python/pull/66
