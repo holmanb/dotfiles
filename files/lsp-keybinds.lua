@@ -70,13 +70,6 @@ end
 nvim_lsp.pyright.setup {
 	on_attach = on_attach,
 	capabilities = capabilities,
-	settings = {
-		python = {
-			analysis = {
-				diagnosticMode = "openFilesOnly",
-			}
-		}
-	}
 }
 
 -- bash
@@ -285,7 +278,16 @@ require('lualine').setup {
 	},
 	sections = {
 		lualine_a = {'mode'},
-		lualine_b = {'branch', 'diff', 'diagnostics'},
+		lualine_b = {
+			'branch',
+			'diff',
+			{
+				'diagnostics',
+				symbols = {
+					error = "☢ ", warn = " ", hint = " ", info = "ℹ ",
+				},
+			},
+		},
 		lualine_c = {'filename'},
 		lualine_x = {'encoding', 'filetype'},
 		lualine_y = {'progress'},
