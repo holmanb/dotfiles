@@ -171,22 +171,24 @@ com -range=% -nargs=0 Lxcpython :<line1>,<line2>call Lxc_python()
 
 set completeopt=menu,menuone,noselect
 
-lua require('plugins/lsp-keybinds')
-lua require('plugins/telescope')
-lua require('plugins/nvim-cmp')
-
-" Initialize trouble
-lua require("plugins/trouble")
-lua require("plugins/nvim-web-devicons")
-
-" Mason package LSP manager
-lua require("mason").setup()
-lua require("mason-lspconfig").setup{ automatic_installation = true, }
-
-
-" DAP - debug adapter protocol
-" https://github.com/mfussenegger/nvim-dap-python/pull/66
 lua << EOF
+
+-- vim.lsp.set_log_level("debug")
+
+require('plugins/lsp-keybinds')
+require('plugins/telescope')
+require('plugins/nvim-cmp')
+
+-- Initialize trouble
+require("plugins/trouble")
+require("plugins/nvim-web-devicons")
+
+-- Mason package LSP manager
+require("mason").setup()
+require("mason-lspconfig").setup{ automatic_installation = true, }
+
+-- DAP - debug adapter protocol
+-- https://github.com/mfussenegger/nvim-dap-python/pull/66
   local dap = require('dap-python')
   dap.setup("~/.virtualenvs/debugpy/bin/python")
   dap.test_runner = 'mypytest'
@@ -248,6 +250,3 @@ noremap <M-h> :vertical:resize -5<CR>
 noremap <M-l> :vertical:resize +5<CR>
 
 
-"lua << EOF
-"vim.lsp.set_log_level("debug")
-"EOF
