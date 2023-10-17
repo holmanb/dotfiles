@@ -13,7 +13,6 @@ if [[ $- != *i* ]] ; then
 	# Shell is non-interactive.  Be done now!
 	return
 fi
-export PATH="$PATH:~/bin:/home/bholman/.cargo/bin:~/.local/bin"
 export EDITOR="vim"
 #export GPG_TTY=$(tty)
 export PINENTRY_USER_DATA="USE_CURSES=1"
@@ -21,4 +20,5 @@ export PINENTRY_USER_DATA="USE_CURSES=1"
 
 
 # Put your fun stuff here.
-. "$HOME/.cargo/env"
+export GOBIN=~/.gobin/
+export PATH="$PATH:~/bin:/home/bholman/.cargo/bin:~/.local/bin"
