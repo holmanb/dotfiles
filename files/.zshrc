@@ -18,7 +18,7 @@ export EDITOR=nvim
 export BROWSER=firefox
 export PAGER=less
 #export MANPAGER='nvim +Man\!'
-export GIT_PROMPT_EXECUTABLE="haskell"
+#export GIT_PROMPT_EXECUTABLE="haskell"
 export PROMPT='%B%m%F{green}%~%b%F{reset}$(git_super_status) '
 export QT_QPA_PLATFORM=wayland
 export MOZ_ENABLE_WAYLAND=1
@@ -42,9 +42,9 @@ export PATH="/home/holmanb/.mozbuild/git-cinnabar:$PATH"
 bindkey -e
 bindkey "^[[3~" delete-char
 
-#source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/workspace/zsh-git-prompt/zshrc.sh
+test -f ~/.zsh && source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+test -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh && source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /home/holmanb/workspace/zsh-git-prompt/zshrc.sh
 source /home/holmanb/Documents/creds/novarc
 
 # NPM packages in homedir
