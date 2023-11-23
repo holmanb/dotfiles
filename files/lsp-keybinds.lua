@@ -131,6 +131,7 @@ nvim_lsp.ccls.setup {
 }
 
 -- null-ls
+--require("null-ls").builtins.diagnostics.codespell,
 require "null-ls".setup({
 	sources = {
 		require("null-ls").builtins.code_actions.shellcheck,
@@ -138,7 +139,6 @@ require "null-ls".setup({
 		require("null-ls").builtins.diagnostics.flake8,
 		require("null-ls").builtins.diagnostics.gitlint,
 		require("null-ls").builtins.diagnostics.rstcheck,
-		require("null-ls").builtins.diagnostics.codespell,
 		require("null-ls").builtins.diagnostics.eslint
 	}})
 

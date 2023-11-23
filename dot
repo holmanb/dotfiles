@@ -36,15 +36,6 @@ function files(){
 }
 
 function apps(){
-    npm config set prefix "$HOME/.npm-packages"
-    npm i -g pyright@latest
-    npm i -g bash-language-server@latest
-    npm i -g vim-language-server@latest
-    npm i -g remark@latest
-    npm i -g @ansible/ansible-language-server
-    pip install --user gmail-yaml-filters
-    pip install --user codespell
-    go install golang.org/x/tools/gopls@latest
 
     # Font
     wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Ubuntu.zip

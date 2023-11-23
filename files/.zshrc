@@ -147,6 +147,40 @@ vgrep() {
   | awk '{print $1}' | xargs -I{} -o vgrep --show {}
 }
 
+CI_DIR=$HOME/.cloud-init
+ci-setup(){
+	git clone https://github.com/canonical/cloud-init.git $CI_DIR
+	(
+		cd $CI_DIR
+		tox -e py3
+		tox -e ruff
+		tox -e do_format
+		tox -e mypy
+		CLOUD_INIT_SOURCE="IN_PLACE" tox -e integration-tests -- tests/integration-tests/test_logging.py
+	)
+
+}
+ci-teardown(){ rm -rf $CI_DIR }
+ci-py3(){ $CI_DIR/.tox/py3/bin/python -m pytest -vvvv --showlocals $@ }
+ci-mypy(){ $CI_DIR/.tox/mypy/bin/python -m mypy cloudinit/ tests/ tools/ }
+ci-black(){ $CI_DIR/.tox/do_format/bin/python -m black . }
+ci-isort(){ $CI_DIR/.tox/do_format/bin/python -m isort . }
+ci-ruff(){ $CI_DIR/.tox/ruff/bin/python -m ruff cloudinit/ tests/ tools/ conftest.py setup.py }
+ci-integration(){
+	CLOUD_INIT_SOURCE="IN_PLACE" $CI_DIR/.tox/integration-tests/bin/python -m py3 --log-cli-level=INFO
+}
+ci-do_format(){
+	ci-isort
+	ci-black
+}
+ci-py3-fail-fast(){ ci-py3 -x $@ }
+ci-all(){
+	ci-ruff
+	ci-py3-fail-fast
+	ci-do_format
+	ci-mypy
+}
+
 alias weather="curl https://v2.wttr.in/"
 alias ghettodeb="DEB_BUILD_OPTIONS=nocheck packages/bddeb -d"
 
