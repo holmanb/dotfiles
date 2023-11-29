@@ -12,13 +12,13 @@ syntax on
 
 " Hybrid line numbers
 set number
-"set relativenumber
 set cursorline
 set showmatch
 set tw=72 fo=cqt wm=0
 set foldmethod=indent
 set nofoldenable
 set tabstop=4
+set expandtab
 set shiftwidth=4
 set fillchars+=diff:╱
 set mouse=

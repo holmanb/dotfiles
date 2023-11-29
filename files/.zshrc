@@ -138,15 +138,9 @@ func standup() {
 	cd -
 }
 
-# This wrapper requires vgrep to be installed: github.com/vrothberg/vgrep
-vgrep() {
-  INITIAL_QUERY="$1"
-  VGREP_PREFIX="vgrep --no-header "
-  FZF_DEFAULT_COMMAND="$VGREP_PREFIX '$INITIAL_QUERY'" \
-  fzf --bind "change:reload:$VGREP_PREFIX {q} || true" --ansi --phony --tac --query "$INITIAL_QUERY" \
-  | awk '{print $1}' | xargs -I{} -o vgrep --show {}
-}
-
+# cloud init development helpers: re-use stale tox environments for faster iteration
+#
+# helper lifecycle functions
 CI_DIR=$HOME/.cloud-init
 ci-setup(){
 	git clone https://github.com/canonical/cloud-init.git $CI_DIR
@@ -160,25 +154,38 @@ ci-setup(){
 	)
 
 }
+ci-refresh(){
+    (
+		cd $CI_DIR
+        git pull
+		tox -re py3
+		tox -re ruff
+		tox -re do_format
+		tox -re mypy
+		CLOUD_INIT_SOURCE="IN_PLACE" tox -e integration-tests -- tests/integration-tests/test_logging.py
+    )
+}
 ci-teardown(){ rm -rf $CI_DIR }
-ci-py3(){ $CI_DIR/.tox/py3/bin/python -m pytest -vvvv --showlocals $@ }
-ci-mypy(){ $CI_DIR/.tox/mypy/bin/python -m mypy cloudinit/ tests/ tools/ }
-ci-black(){ $CI_DIR/.tox/do_format/bin/python -m black . }
-ci-isort(){ $CI_DIR/.tox/do_format/bin/python -m isort . }
+
+# tox wrappers
+ci-py3(){ $CI_DIR/.tox/py3/bin/python -m pytest -vvvv --showlocals ${1-tests/unittests/} }
+ci-mypy(){$CI_DIR/.tox/mypy/bin/python -m mypy cloudinit/ tests/ tools/ }
+ci-black(){ $CI_DIR/.tox/do_format/bin/python -m black ${1-.} }
+ci-isort(){ $CI_DIR/.tox/do_format/bin/python -m isort ${1-.} }
 ci-ruff(){ $CI_DIR/.tox/ruff/bin/python -m ruff cloudinit/ tests/ tools/ conftest.py setup.py }
 ci-integration(){
-	CLOUD_INIT_SOURCE="IN_PLACE" $CI_DIR/.tox/integration-tests/bin/python -m py3 --log-cli-level=INFO
+	CLOUD_INIT_SOURCE="IN_PLACE" $CI_DIR/.tox/integration-tests/bin/python -m py3 --log-cli-level=INFO ${1-tests/integration_tests/test_logging.py}
 }
 ci-do_format(){
-	ci-isort
-	ci-black
+	ci-isort $@
+	ci-black $@
 }
 ci-py3-fail-fast(){ ci-py3 -x $@ }
 ci-all(){
-	ci-ruff
-	ci-py3-fail-fast
-	ci-do_format
-	ci-mypy
+	ci-ruff $@
+	ci-py3-fail-fast $@
+	ci-do_format $@
+	ci-mypy $@
 }
 
 alias weather="curl https://v2.wttr.in/"

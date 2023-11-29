@@ -32,6 +32,8 @@ function files(){
     install .muttrc             ~/
     install .gitconfig          ~/
     install efm-langserver.yaml ~/.config/efm-langserver/config.yaml
+    ln -s -T $HOME/workspace/ktest/root_image $HOME/bin/root_image
+    ln -s -T $HOME/workspace/ktest/build-test-kernel $HOME/bin/build-test-kernel
     gmail-yaml-filters gmail-filters.yml > ~/Downloads/myfilters.xml #manually imported
 }
 
